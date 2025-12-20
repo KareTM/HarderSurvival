@@ -1,0 +1,7 @@
+name: KareHardSurvival
+version: '1.0.0'
+main: kare.kareHardSurvival.KareHardSurvival
+api-version: '1.21.10'
+authors: [ Kare ]
+description: Makes the early game harder
+softdepend: [UltimateAdvancementAPI]
