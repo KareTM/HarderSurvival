@@ -23,7 +23,7 @@ public class FuelHelper {
         }
     };
 
-    public static final int fuelTier1Divisor = 3;
+    public static final int TIER1_SPEED_DIVISOR = 3;
 
     public static final List<Material> fuelTier2 = new ArrayList<>() {
         {
@@ -34,7 +34,7 @@ public class FuelHelper {
         }
     };
 
-    public static final int fuelTier2Divisor = 2;
+    public static final int TIER2_SPEED_DIVISOR = 2;
 
     public static final List<Material> fuelTier3 = new ArrayList<>() {
         {
@@ -45,7 +45,8 @@ public class FuelHelper {
         }
     };
 
-    public static final int fuelTier3Divisor = 2;
+    public static final int TIER3_SPEED_DIVISOR = 2; // Blast has natural 2x, so this brings back to 1x
+    public static final double TIER3_FUEL_MULT = 1.5; // Blast has natural 2x, so this brings back to 1x
 
     public static final List<Material> fuelTier4 = new ArrayList<>() {
         {

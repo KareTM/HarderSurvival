@@ -10,6 +10,7 @@ import kare.kareHardSurvival.Helpers.RecipeKeyList;
 import kare.kareHardSurvival.Items.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.BlastFurnace;
 import org.bukkit.block.Furnace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -109,6 +110,11 @@ public class FurnaceManager implements Listener {
                 e.setCancelled(true);
                 return;
             }
+            Bukkit.getScheduler().runTask(plugin, t -> {
+                var furnace = (BlastFurnace) e.getBlock().getState();
+                furnace.setBurnTime((short) (furnace.getBurnTime() * FuelHelper.TIER3_FUEL_MULT));
+                furnace.update();
+            });
         } else if (FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier4)) {
             if (!FuelHelper.fuelTier4.contains(fuelType)) {
                 e.setCancelled(true);
