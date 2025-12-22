@@ -1,6 +1,5 @@
 package kare.kareHardSurvival.Recipes;
 
-import kare.kareHardSurvival.Helpers.FlagHelper;
 import kare.kareHardSurvival.Helpers.RecipeKeyList;
 import kare.kareHardSurvival.Items.ItemManager;
 import org.bukkit.Material;
@@ -255,13 +254,13 @@ public class RecipeAdder {
     FurnaceRecipe heatedCopper() {
         var item = ItemManager.createHeatedCopper();
 
-        return new FurnaceRecipe(RecipeKeyList.heatedCopper, item, new RecipeChoice.ExactChoice(ItemStack.of(Material.COPPER_INGOT)), 0.1f, 200);
+        return new FurnaceRecipe(RecipeKeyList.heatedCopper, item, Material.COPPER_INGOT, 0.1f, 200);
     }
 
     BlastingRecipe heatedCopperBlast() {
         var item = ItemManager.createHeatedCopper();
 
-        return new BlastingRecipe(RecipeKeyList.heatedCopperBlast, item, new RecipeChoice.ExactChoice(ItemStack.of(Material.COPPER_INGOT)), 0.1f, 100);
+        return new BlastingRecipe(RecipeKeyList.heatedCopperBlast, item, Material.COPPER_INGOT, 0.1f, 100);
     }
 
     ShapedRecipe copperHammer() {

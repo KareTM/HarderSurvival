@@ -10,12 +10,12 @@ import kare.kareHardSurvival.Helpers.RecipeKeyList;
 import kare.kareHardSurvival.Items.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.Furnace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.FurnaceBurnEvent;
 import org.bukkit.event.inventory.FurnaceExtractEvent;
+import org.bukkit.inventory.BlastingRecipe;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -53,21 +53,29 @@ public class FurnaceManager implements Listener {
         }
 
         var furnace = (Furnace) event.getBlock().getState();
-        FurnaceRecipe found = null;
+        FurnaceRecipe foundFurnace = null;
+        BlastingRecipe foundBlast = null;
         for (@NotNull Iterator<Recipe> it = Bukkit.recipeIterator(); it.hasNext(); ) {
             var r = it.next();
             if (r instanceof FurnaceRecipe fr) {
                 if (fr.getResult().getType() == result && furnace.hasRecipeUsedCount(fr.getKey())) {
-                    found = fr;
+                    foundFurnace = fr;
+                    break;
+                }
+            } else if (r instanceof BlastingRecipe br) {
+                if (br.getResult().getType() == result && furnace.hasRecipeUsedCount(br.getKey())) {
+                    foundBlast = br;
                     break;
                 }
             }
         }
 
-        if (found == null) return;
+        if (foundFurnace == null && foundBlast == null) return;
 
         for (var rule : granters) {
-            if (rule.items().contains(found.getResult())) {
+            if (foundFurnace != null && rule.items().contains(foundFurnace.getResult())) {
+                rule.grant().accept(p);
+            } else if (foundBlast != null && rule.items().contains(foundBlast.getResult())) {
                 rule.grant().accept(p);
             }
         }

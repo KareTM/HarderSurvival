@@ -2,7 +2,6 @@ package kare.kareHardSurvival;
 
 import com.fren_gor.ultimateAdvancementAPI.AdvancementMain;
 import com.fren_gor.ultimateAdvancementAPI.database.impl.SQLite;
-import com.fren_gor.ultimateAdvancementAPI.util.AdvancementUtils;
 import kare.kareHardSurvival.Advancements.AdvancementManager;
 import kare.kareHardSurvival.Items.ItemManager;
 import kare.kareHardSurvival.Listeners.*;
@@ -70,7 +69,4 @@ public final class KareHardSurvival extends JavaPlugin implements Listener {
         AdvancementLib.disable();
         // Plugin shutdown logic
     }
-
-    // TODO: Log stuff with offhand item weird
-    // TODO: lasting Recipe check for advancement
 }
