@@ -59,4 +59,11 @@ public class InventoryHelpers {
             clone.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, attrs);
         return clone;
     }
+
+    public static void copyEnchantments(ItemStack from, ItemStack to) {
+        var enchants = from.getData(DataComponentTypes.ENCHANTMENTS);
+        if (enchants != null) {
+            to.setData(DataComponentTypes.ENCHANTMENTS, enchants);
+        }
+    }
 }

@@ -54,7 +54,7 @@ public class BlockBreakManager implements Listener {
         carveTable(e, bd, tool, block);
         cutGrass(p, block, tool);
         campfire(e, block, tool, p);
-        furnaces(e, block, bd);
+        furnaces(block, bd);
         forge(e, bd, block);
     }
 
@@ -66,6 +66,11 @@ public class BlockBreakManager implements Listener {
             var loc = block.getLocation().toCenterLocation();
             if (fd.hammer != null && !fd.hammer.isEmpty()) {
                 ItemStack newHammer = InventoryHelpers.getFreshHammer(fd.hammer);
+                var oldDamage = fd.hammer.getData(DataComponentTypes.DAMAGE);
+                if (oldDamage != null && newHammer != null) {
+                    InventoryHelpers.damageTool(e.getPlayer(), newHammer, oldDamage);
+                    InventoryHelpers.copyEnchantments(fd.hammer, newHammer);
+                }
                 world.dropItemNaturally(loc, newHammer == null ? ItemStack.empty() : newHammer);
             }
             if (fd.material1 != null && !fd.material1.isEmpty())
@@ -82,7 +87,7 @@ public class BlockBreakManager implements Listener {
         }
     }
 
-    private static void furnaces(BlockBreakEvent e, Block block, CustomBlockData bd) {
+    private static void furnaces(Block block, CustomBlockData bd) {
         var loc = block.getLocation().toCenterLocation();
         var world = block.getWorld();
 

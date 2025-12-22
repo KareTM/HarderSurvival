@@ -1,6 +1,7 @@
 package kare.kareHardSurvival.Items;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import kare.kareHardSurvival.Helpers.InventoryHelpers;
 import org.bukkit.Material;
 import org.bukkit.entity.Villager;
 import org.bukkit.inventory.ItemStack;
@@ -36,14 +37,12 @@ public class ItemRemapper {
         switch (type) {
 
             // ---- STONE → FLINT ----
-            case STONE_AXE -> {
-                replacement = resolveAxe(
-                        ItemManager.createFlintAxe(true),
-                        null,
-                        profession,
-                        source
-                );
-            }
+            case STONE_AXE -> replacement = resolveAxe(
+                    ItemManager.createFlintAxe(true),
+                    null,
+                    profession,
+                    source
+            );
             case STONE_PICKAXE -> replacement = ItemManager.createFlintPick();
             case STONE_SHOVEL -> replacement = ItemManager.createFlintShovel();
             case STONE_SWORD -> replacement = ItemManager.createFlintKnife(true);
@@ -53,28 +52,24 @@ public class ItemRemapper {
             case IRON_SHOVEL -> replacement = ItemManager.createCopperShovel();
             case IRON_SWORD -> replacement = ItemManager.createCopperSword();
 
-            case IRON_AXE -> {
-                replacement = resolveAxe(
-                        ItemManager.createCopperAxe(),
-                        ItemManager.createCopperHammer(),
-                        profession,
-                        source
-                );
-            }
+            case IRON_AXE -> replacement = resolveAxe(
+                    ItemManager.createCopperAxe(),
+                    ItemManager.createCopperHammer(),
+                    profession,
+                    source
+            );
 
             // ---- DIAMOND → FORGED COPPER ----
             case DIAMOND_PICKAXE -> replacement = ItemManager.createForgedCopperPick();
             case DIAMOND_SHOVEL -> replacement = ItemManager.createForgedCopperShovel();
             case DIAMOND_SWORD -> replacement = ItemManager.createForgedCopperSword();
 
-            case DIAMOND_AXE -> {
-                replacement = resolveAxe(
-                        ItemManager.createForgedCopperAxe(),
-                        ItemManager.createForgedCopperHammer(),
-                        profession,
-                        source
-                );
-            }
+            case DIAMOND_AXE -> replacement = resolveAxe(
+                    ItemManager.createForgedCopperAxe(),
+                    ItemManager.createForgedCopperHammer(),
+                    profession,
+                    source
+            );
         }
 
         /* =======================
@@ -102,7 +97,7 @@ public class ItemRemapper {
 
         if (replacement == null) return null;
 
-        copyEnchantments(original, replacement);
+        InventoryHelpers.copyEnchantments(original, replacement);
         handleDamage(original, replacement);
         return replacement;
     }
@@ -130,16 +125,6 @@ public class ItemRemapper {
         return random.nextBoolean() ? axe : hammer;
     }
 
-
-    /* =======================
-       ENCHANT COPY
-    ======================= */
-    private static void copyEnchantments(ItemStack from, ItemStack to) {
-        var enchants = from.getData(DataComponentTypes.ENCHANTMENTS);
-        if (enchants != null) {
-            to.setData(DataComponentTypes.ENCHANTMENTS, enchants);
-        }
-    }
 
     @SuppressWarnings("DataFlowIssue")
     private static void handleDamage(ItemStack from, ItemStack to) {

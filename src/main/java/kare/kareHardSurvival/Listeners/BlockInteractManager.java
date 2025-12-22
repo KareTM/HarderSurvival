@@ -41,7 +41,6 @@ public class BlockInteractManager implements Listener {
 
         if (block.getType() == Material.CAMPFIRE) {
             if (event.getAction().isRightClick()) {
-                plugin.getLogger().info(p.getInventory().getItem(p.getActiveItemHand()).toString());
                 if (AdvancementManager.Terracotta.getProgression(p) == 0)
                     AdvancementManager.Terracotta.incrementProgression(p);
             }
