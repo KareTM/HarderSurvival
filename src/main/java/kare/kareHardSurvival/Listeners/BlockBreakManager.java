@@ -19,6 +19,7 @@ import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockBreakManager implements Listener {
@@ -33,7 +34,7 @@ public class BlockBreakManager implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         var p = e.getPlayer();
-        var tool = InventoryHelpers.getUsedItem(p);
+        var tool = InventoryHelpers.getMainhand(p);
         var block = e.getBlock();
 
         if (Tag.LOGS.getValues().contains(block.getType())) {
@@ -174,7 +175,7 @@ public class BlockBreakManager implements Listener {
     @EventHandler
     public void onBlockDropItem(BlockDropItemEvent e) {
         var p = e.getPlayer();
-        var tool = InventoryHelpers.getUsedItem(p);
+        var tool = InventoryHelpers.getMainhand(p);
         furnaceCheck(e);
         stickObtain(e, tool);
         handaxeObtain(e, tool, p);
@@ -184,17 +185,30 @@ public class BlockBreakManager implements Listener {
         ironObtain(e, tool);
     }
 
-    private void furnaceCheck(BlockDropItemEvent e) {
-
+    private static void furnaceCheck(BlockDropItemEvent e) {
+        var toRemove = new ArrayList<Item>();
 
         for(var item : e.getItems()) {
-            if (item.name().equals(ItemManager.createFurnace().displayName())) {
-                e.getItems().remove(item);
-            } else if (item.name().equals(ItemManager.createFurnaceCopper().displayName())) {
-                e.getItems().remove(item);
-            } else if (item.name().equals(ItemManager.createWroughtIronBlastFurnace().displayName())) {
-                e.getItems().remove(item);
+            if (item.getItemStack().getType() != Material.FURNACE && item.getItemStack().getType() != Material.BLAST_FURNACE)
+                continue;
+            var name = item.getItemStack().getData(DataComponentTypes.CUSTOM_NAME);
+            if (name == null)
+                continue;
+            if (name.equals(ItemManager.createFurnace().getData(DataComponentTypes.CUSTOM_NAME))) {
+                toRemove.add(item);
             }
+            else if (name.equals(ItemManager.createFurnaceCopper().getData(DataComponentTypes.CUSTOM_NAME))) {
+                toRemove.add(item);
+            }
+            else if (name.equals(ItemManager.createWroughtIronBlastFurnace().getData(DataComponentTypes.CUSTOM_NAME))) {
+                toRemove.add(item);
+            }
+        }
+
+        if (e.getItems().size() == toRemove.size()) {
+            e.getItems().clear();
+        } else {
+            e.getItems().removeAll(toRemove);
         }
     }
 

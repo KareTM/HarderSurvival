@@ -11,6 +11,7 @@ import com.fren_gor.ultimateAdvancementAPI.util.AdvancementKey;
 import com.fren_gor.ultimateAdvancementAPI.util.CoordAdapter;
 import kare.kareHardSurvival.Items.ItemManager;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 public class AdvancementManager {
@@ -34,12 +35,14 @@ public class AdvancementManager {
     public static BaseAdvancement Stonecutter;
     public static BaseAdvancement CopperPick;
     public static BaseAdvancement CopperFurnace;
+    public static BaseAdvancement BulkCopper;
     public static BaseAdvancement HeatedCopper;
     public static BaseAdvancement HammerTime;
     public static MultiParentsAdvancement Forge;
     public static BaseAdvancement ForgedPickaxe;
     public static BaseAdvancement SuitedUp;
     public static BaseAdvancement ForgedHammer;
+    public static BaseAdvancement CastIron;
     public static BaseAdvancement IronBurden;
     public static BaseAdvancement IronBloom;
     public static BaseAdvancement WroughtIron;
@@ -81,6 +84,7 @@ public class AdvancementManager {
         AdvancementKey stonecutterKey = new AdvancementKey(tab.getNamespace(), "stonecutter");
         AdvancementKey copperPickKey = new AdvancementKey(tab.getNamespace(), "copper_pick");
         AdvancementKey copperFurnaceKey = new AdvancementKey(tab.getNamespace(), "copper_furnace");
+        AdvancementKey bulkCopperKey = new AdvancementKey(tab.getNamespace(), "bulk_copper");
         AdvancementKey heatedCopperKey = new AdvancementKey(tab.getNamespace(), "heated_copper");
         AdvancementKey hammerKey = new AdvancementKey(tab.getNamespace(), "hammer");
         AdvancementKey forgeKey = new AdvancementKey(tab.getNamespace(), "forge");
@@ -88,7 +92,8 @@ public class AdvancementManager {
         AdvancementKey suitedKey = new AdvancementKey(tab.getNamespace(), "suited_up");
         AdvancementKey forgedHammerKey = new AdvancementKey(tab.getNamespace(), "forged_hammer");
         AdvancementKey ironBurdenKey = new AdvancementKey(tab.getNamespace(), "iron_burden");
-        AdvancementKey iron_bloom_key = new AdvancementKey(tab.getNamespace(), "iron_bloom");
+        AdvancementKey castIronKey = new AdvancementKey(tab.getNamespace(), "cast_iron");
+        AdvancementKey ironBloomKey = new AdvancementKey(tab.getNamespace(), "iron_bloom");
         AdvancementKey wroughtIronKey = new AdvancementKey(tab.getNamespace(), "wrought_iron");
         AdvancementKey ironHammerKey = new AdvancementKey(tab.getNamespace(), "iron_hammer");
         AdvancementKey ironPickKey = new AdvancementKey(tab.getNamespace(), "iron_pick");
@@ -117,12 +122,14 @@ public class AdvancementManager {
                 add(copperFurnaceKey, 10f, 1f).
                 add(hammerKey, 10f, 0f).
                 add(heatedCopperKey, 11f, 1f).
+                add(bulkCopperKey, 11f, 2f).
                 add(forgeKey, 12f, 0f).
                 add(forgedPickKey, 13f, 0f).
                 add(suitedKey, 13f, -1f).
                 add(forgedHammerKey, 13f, 1f).
                 add(ironBurdenKey, 14f, 0f).
-                add(iron_bloom_key, 15f, 0f).
+                add(castIronKey, 14f, 1f).
+                add(ironBloomKey, 15f, 0f).
                 add(wroughtIronKey, 16f, 0f).
                 add(ironHammerKey, 17f, -1f).
                 add(ironPickKey, 17f, 0f).
@@ -195,6 +202,9 @@ public class AdvancementManager {
         HammerTime = new ParentVisibleBaseAdvancement(hammerKey.getKey(), new AdvancementDisplay(ItemManager.createCopperHammer(), "It's Hammer Time", AdvancementFrameType.TASK,
                 true, true, coordAdapter.getX(hammerKey), coordAdapter.getY(hammerKey),
                 "Make a Crafted Copper Hammer, for all your hammering needs"), Copper, 1);
+        BulkCopper = new ParentVisibleBaseAdvancement(bulkCopperKey.getKey(), new AdvancementDisplay(ItemStack.of(Material.COPPER_INGOT), "Bulk Copper Smelting", AdvancementFrameType.GOAL,
+                true, true, coordAdapter.getX(bulkCopperKey), coordAdapter.getY(bulkCopperKey),
+                "Smelt Copper in bulk, by using a Raw Copper Block, 9x the output, 8x the time"), CopperFurnace, 1);
         HeatedCopper = new ParentVisibleBaseAdvancement(heatedCopperKey.getKey(), new AdvancementDisplay(ItemManager.createHeatedCopper(), "Things are Heating Up", AdvancementFrameType.TASK,
                 true, true, coordAdapter.getX(heatedCopperKey), coordAdapter.getY(heatedCopperKey),
                 "Heat up some Copper in your new Copper Plated Furnace"), CopperFurnace, 1);
@@ -213,8 +223,11 @@ public class AdvancementManager {
         IronBurden = new ParentVisibleBaseAdvancement(ironBurdenKey.getKey(), new AdvancementDisplay(ItemManager.createIronBurden(), "A Heavy Burden", AdvancementFrameType.TASK,
                 true, true, coordAdapter.getX(ironBurdenKey), coordAdapter.getY(ironBurdenKey),
                 "Craft an Iron Burden, using Charcoal and a Raw Iron Block"), ForgedPickaxe, 1);
-        IronBloom = new ParentVisibleBaseAdvancement(iron_bloom_key.getKey(), new AdvancementDisplay(ItemManager.createIronBloom(), "Blooming Metal", AdvancementFrameType.TASK,
-                true, true, coordAdapter.getX(iron_bloom_key), coordAdapter.getY(iron_bloom_key),
+        CastIron = new ParentVisibleBaseAdvancement(castIronKey.getKey(), new AdvancementDisplay(ItemManager.createCastIron(), "Casted", AdvancementFrameType.GOAL,
+                true, true, coordAdapter.getX(castIronKey), coordAdapter.getY(castIronKey),
+                "You may get cheaper Cast Iron, by smelting Dense Raw Iron, which is useless for tools and armor but useful for buckets and others"), ForgedPickaxe, 1);
+        IronBloom = new ParentVisibleBaseAdvancement(ironBloomKey.getKey(), new AdvancementDisplay(ItemManager.createIronBloom(), "Blooming Metal", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(ironBloomKey), coordAdapter.getY(ironBloomKey),
                 "Smelt an Iron Burden into an Iron Bloom, it may take a while, so stock some Fuel"), IronBurden, 1);
         WroughtIron = new ParentVisibleBaseAdvancement(wroughtIronKey.getKey(), new AdvancementDisplay(Material.IRON_INGOT, "Wrought About It", AdvancementFrameType.TASK,
                 true, true, coordAdapter.getX(wroughtIronKey), coordAdapter.getY(wroughtIronKey),
@@ -233,9 +246,9 @@ public class AdvancementManager {
                 "Craft a Blast Furnace, the fastest furnace to date, cannot use Charcoal"), WroughtIron, 1);
 
         tab.registerAdvancements(Root, NoLog, Handaxe, Flint, Sticks, Knife, Axe, Grass, Twine, Log, Crafting, Carving, Pick,
-                Campfire, Terracotta, Furnace, Copper, Stonecutter, CopperPick, CopperFurnace, HammerTime, HeatedCopper, Forge,
-                ForgedPickaxe, SuitedUp, ForgedHammer, IronBurden, IronBloom, WroughtIron,
-                IronHammer, IronPick, IronArmor, BlastFurnace);
+                Campfire, Terracotta, Furnace, Copper, Stonecutter, CopperPick, CopperFurnace, HammerTime, HeatedCopper, BulkCopper,
+                Forge, ForgedPickaxe, SuitedUp, ForgedHammer, IronBurden, CastIron, IronBloom, WroughtIron, IronHammer, IronPick,
+                IronArmor, BlastFurnace);
     }
 
     public static AdvancementTab getTab() {

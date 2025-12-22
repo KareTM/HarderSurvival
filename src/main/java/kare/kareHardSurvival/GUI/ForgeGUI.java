@@ -289,7 +289,14 @@ public class ForgeGUI {
                 if (!playing) return;
                 var player = (Player) gui.getViewers().getFirst();
 
-                if (data.hammer == null) return;
+                if (data.hammer == null) {
+                    showTempMessage("Hammer Missing!", Material.BARRIER, t -> {
+                        showStartButton();
+                        update();
+                    });
+                    playing = lockIn = false;
+                    return;
+                }
 
                 var recipe = ForgeRecipes.getRecipe(data.selectedRecipe);
                 var mat1Miss = data.material1 == null || data.material1.isEmpty();
@@ -368,6 +375,8 @@ public class ForgeGUI {
                         if (rule.items().contains(recipe.output))
                             rule.grant().accept(player);
                     }
+
+                    save();
 
                     Bukkit.getScheduler().runTaskLater(plugin, r -> {
                         showStartButton();
@@ -503,10 +512,10 @@ public class ForgeGUI {
 
                 // 1. Cursor has an item → place it into slot
                 if (!cursor.isEmpty()) {
+                    ItemStack newCursor = isEmptySlot ? ItemStack.empty() : InventoryHelpers.stripIFUUID(initial.item);
                     if (!callback.test(cursor))
                         return;
 
-                    ItemStack newCursor = isEmptySlot ? ItemStack.empty() : InventoryHelpers.stripIFUUID(initial.item);
                     e.getView().setCursor(newCursor);
 
                     // REPLACE GUI ITEM PROPERLY

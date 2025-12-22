@@ -1,5 +1,6 @@
 package kare.kareHardSurvival.Recipes;
 
+import kare.kareHardSurvival.Helpers.FlagHelper;
 import kare.kareHardSurvival.Helpers.RecipeKeyList;
 import kare.kareHardSurvival.Items.ItemManager;
 import org.bukkit.Material;
@@ -34,7 +35,9 @@ public class RecipeAdder {
         s.addRecipe(terracotta());
         s.addRecipe(furnace());
         s.addRecipe(copperNugget());
+        s.addRecipe(copperIngot());
         s.addRecipe(copperNuggetBlast());
+        s.addRecipe(copperIngotBlast());
         s.addRecipe(copperPick());
         s.addRecipe(copperAxe());
         s.addRecipe(copperShovel());
@@ -48,7 +51,10 @@ public class RecipeAdder {
         s.addRecipe(stonecutter());
         s.addRecipe(ironBloom());
         s.addRecipe(ironBloomBlast());
+        s.addRecipe(castIron());
+        s.addRecipe(castIronBlast());
         s.addRecipe(ironBurden());
+        s.addRecipe(denseIronOre());
         s.addRecipe(furnaceIron());
 
         for (var recipe : planksSplitting())
@@ -174,10 +180,22 @@ public class RecipeAdder {
         return new FurnaceRecipe(RecipeKeyList.copperNugget, item, Material.RAW_COPPER, 0.5f, 200);
     }
 
+    FurnaceRecipe copperIngot() {
+        var item = ItemManager.createCopper();
+
+        return new FurnaceRecipe(RecipeKeyList.copperIngot, item, Material.RAW_COPPER_BLOCK, 2.5f, 1600);
+    }
+
     BlastingRecipe copperNuggetBlast() {
         var item = ItemStack.of(Material.COPPER_NUGGET);
 
         return new BlastingRecipe(RecipeKeyList.copperNuggetBlast, item, Material.RAW_COPPER, 0.5f, 100);
+    }
+
+    BlastingRecipe copperIngotBlast() {
+        var item = ItemStack.of(Material.COPPER_INGOT);
+
+        return new BlastingRecipe(RecipeKeyList.copperIngotBlast, item, Material.RAW_COPPER_BLOCK, 2.5f, 800);
     }
 
     ShapedRecipe copperPick() {
@@ -297,10 +315,31 @@ public class RecipeAdder {
         return recipe;
     }
 
+    ShapedRecipe denseIronOre() {
+        var item = ItemManager.createDenseIronOre();
+        ShapedRecipe recipe = new ShapedRecipe(RecipeKeyList.denseIron, item);
+        recipe.shape("II", "II");
+        recipe.setIngredient('I', Material.RAW_IRON);
+
+        return recipe;
+    }
+
+    FurnaceRecipe castIron() {
+        var item = ItemManager.createCastIron();
+
+        return new FurnaceRecipe(RecipeKeyList.castIron, item, new RecipeChoice.ExactChoice(ItemManager.createDenseIronOre()), 0.75f, 400);
+    }
+
     FurnaceRecipe ironBloom() {
         var item = ItemManager.createIronBloom();
 
         return new FurnaceRecipe(RecipeKeyList.ironBloom, item, new RecipeChoice.ExactChoice(ItemManager.createIronBurden()), 1.0f, 800);
+    }
+
+    BlastingRecipe castIronBlast() {
+        var item = ItemManager.createCastIron();
+
+        return new BlastingRecipe(RecipeKeyList.castIronBlast, item, new RecipeChoice.ExactChoice(ItemManager.createDenseIronOre()), 0.75f, 200);
     }
 
     BlastingRecipe ironBloomBlast() {
@@ -330,6 +369,7 @@ public class RecipeAdder {
                 Material.DARK_OAK_LOG,
                 Material.MANGROVE_LOG,
                 Material.CHERRY_LOG,
+                Material.PALE_OAK_LOG
         };
 
         List<ShapelessRecipe> planks = new ArrayList<>();
@@ -380,6 +420,7 @@ public class RecipeAdder {
                 Material.DARK_OAK_LOG,
                 Material.MANGROVE_LOG,
                 Material.CHERRY_LOG,
+                Material.PALE_OAK_LOG
         };
 
         List<StonecuttingRecipe> planks = new ArrayList<>();
@@ -428,6 +469,7 @@ public class RecipeAdder {
                 Material.DARK_OAK_PLANKS,
                 Material.MANGROVE_PLANKS,
                 Material.CHERRY_PLANKS,
+                Material.PALE_OAK_PLANKS
         };
 
         List<StonecuttingRecipe> stickArray = new ArrayList<>();

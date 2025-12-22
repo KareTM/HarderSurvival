@@ -36,13 +36,9 @@ public class FurnaceManager implements Listener {
     static List<Granter> granters = new ArrayList<>(List.of(
             GranterBuilder.of(ItemManager.createHeatedCopper()).discover(RecipeKeyList.forge).grant(AdvancementManager.HeatedCopper).build(),
             GranterBuilder.of(ItemStack.of(Material.COPPER_NUGGET)).grant(AdvancementManager.Copper).build(),
-            GranterBuilder.of(ItemManager.createIronBloom()).grant(AdvancementManager.IronBloom)
-                    .condition(p -> {
-                        p.undiscoverRecipe(NamespacedKey.minecraft("netherite_scrap"));
-                        p.undiscoverRecipe(NamespacedKey.minecraft("netherite_scrap_from_blasting"));
-                        return true;
-                    })
-                    .build()
+            GranterBuilder.of(ItemManager.createCopper()).grant(AdvancementManager.BulkCopper).build(),
+            GranterBuilder.of(ItemManager.createCastIron()).grant(AdvancementManager.CastIron).build(),
+            GranterBuilder.of(ItemManager.createIronBloom()).grant(AdvancementManager.IronBloom).build()
     ));
 
     @EventHandler
@@ -56,11 +52,12 @@ public class FurnaceManager implements Listener {
             }
         }
 
+        var furnace = (Furnace) event.getBlock().getState();
         FurnaceRecipe found = null;
         for (@NotNull Iterator<Recipe> it = Bukkit.recipeIterator(); it.hasNext(); ) {
             var r = it.next();
             if (r instanceof FurnaceRecipe fr) {
-                if (fr.getResult().getType() == result) {
+                if (fr.getResult().getType() == result && furnace.hasRecipeUsedCount(fr.getKey())) {
                     found = fr;
                     break;
                 }
@@ -138,7 +135,9 @@ public class FurnaceManager implements Listener {
         }
 
         if (FlagHelper.hasFlag(found.getResult(), FlagHelper.flagRequiresFurnaceTier2)) {
-            if (!FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier2)) {
+            if (!FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier2) &&
+                    !FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier3) &&
+                    !FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier4)) {
                 e.setCancelled(true);
             }
         }

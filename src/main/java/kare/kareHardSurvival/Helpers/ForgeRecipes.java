@@ -47,13 +47,13 @@ public class ForgeRecipes {
             put(RecipeKeyList.ironSword, new ForgeRecipe(RecipeKeyList.ironSword, Component.text("Wrought Iron Sword"),
                     ItemManager.createWroughtIronSword(), 7, ItemManager.createWroughtIron().asQuantity(2), ItemStack.of(Material.STICK, 1)));
             put(RecipeKeyList.ironHelmet, new ForgeRecipe(RecipeKeyList.ironHelmet, Component.text("Wrought Iron Helmet"),
-                    ItemStack.of(Material.IRON_HELMET), 7, ItemManager.createWroughtIron().asQuantity(5)));
+                    ItemStack.of(Material.IRON_HELMET), 16, ItemManager.createWroughtIron().asQuantity(5)));
             put(RecipeKeyList.ironChestplate, new ForgeRecipe(RecipeKeyList.ironChestplate, Component.text("Wrought Iron Chestplate"),
-                    ItemStack.of(Material.IRON_CHESTPLATE), 9, ItemManager.createWroughtIron().asQuantity(8)));
+                    ItemStack.of(Material.IRON_CHESTPLATE), 20, ItemManager.createWroughtIron().asQuantity(8)));
             put(RecipeKeyList.ironLeggings, new ForgeRecipe(RecipeKeyList.ironLeggings, Component.text("Wrought Iron Leggings"),
-                    ItemStack.of(Material.IRON_LEGGINGS), 8, ItemManager.createWroughtIron().asQuantity(7)));
+                    ItemStack.of(Material.IRON_LEGGINGS), 18, ItemManager.createWroughtIron().asQuantity(7)));
             put(RecipeKeyList.ironBoots, new ForgeRecipe(RecipeKeyList.ironBoots, Component.text("Wrought Iron Boots"),
-                    ItemStack.of(Material.IRON_BOOTS), 6, ItemManager.createWroughtIron().asQuantity(4)));
+                    ItemStack.of(Material.IRON_BOOTS), 14, ItemManager.createWroughtIron().asQuantity(4)));
         }
     };
 
@@ -72,7 +72,7 @@ public class ForgeRecipes {
 
         if (FlagHelper.hasFlag(item, FlagHelper.flagHammerTier1)) tier = 1;
         else if (FlagHelper.hasFlag(item, FlagHelper.flagHammerTier2)) tier = 2;
-        //else if (FlagHelper.hasFlag(item, FlagHelper.flagHammerTier3)) tier = 3;
+        else if (FlagHelper.hasFlag(item, FlagHelper.flagHammerTier3)) tier = 3;
         //else if (FlagHelper.hasFlag(item, FlagHelper.flagHammerTier4)) tier = 4;
 
         return eff_reduction + switch (tier) {

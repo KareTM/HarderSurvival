@@ -37,7 +37,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createHandaxe() {
         ItemStack item = ItemStack.of(Material.FLINT);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 10);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 15);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.TOOL, Tool.tool().defaultMiningSpeed(1.1f).build());
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Handaxe"));
@@ -52,7 +52,7 @@ public class ItemManager {
     public static @NotNull ItemStack createFlintAxe(boolean withTwine) {
         ItemStack item = ItemStack.of(Material.STONE_AXE);
         item.unsetData(DataComponentTypes.TOOL);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 20);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 30);
         if (withTwine) {
             item.setData(DataComponentTypes.DAMAGE, 0);
         } else {
@@ -84,7 +84,7 @@ public class ItemManager {
     public static @NotNull ItemStack createFlintShovel() {
         ItemStack item = ItemStack.of(Material.STONE_SHOVEL);
         item.unsetData(DataComponentTypes.TOOL);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 20);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 30);
         item.setData(DataComponentTypes.DAMAGE, 0);
 
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Flint Shovel"));
@@ -109,7 +109,7 @@ public class ItemManager {
         ItemStack item = ItemStack.of(Material.STONE_SWORD);
         item.unsetData(DataComponentTypes.WEAPON);
 
-        item.setData(DataComponentTypes.MAX_DAMAGE, 20);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 30);
         if (withTwine) {
             item.setData(DataComponentTypes.DAMAGE, 0);
         } else {
@@ -140,7 +140,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createFlintPick() {
         ItemStack item = ItemStack.of(Material.STONE_PICKAXE);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 20);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 30);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Flint Pickaxe"));
 
@@ -165,7 +165,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createCopperPick() {
         ItemStack item = ItemStack.of(Material.COPPER_PICKAXE);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 80);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 100);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Crafted Copper Pickaxe"));
 
@@ -190,7 +190,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createCopperAxe() {
         ItemStack item = ItemStack.of(Material.COPPER_AXE);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 80);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 100);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Crafted Copper Axe"));
 
@@ -216,7 +216,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createCopperShovel() {
         ItemStack item = ItemStack.of(Material.COPPER_SHOVEL);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 80);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 100);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Crafted Copper Shovel"));
 
@@ -239,7 +239,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createForgedCopperPick() {
         ItemStack item = ItemStack.of(Material.COPPER_PICKAXE);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 120);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 150);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Forged Copper Pickaxe"));
 
@@ -269,7 +269,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createForgedCopperAxe() {
         ItemStack item = ItemStack.of(Material.COPPER_AXE);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 120);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 150);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Forged Copper Axe"));
 
@@ -292,7 +292,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createForgedCopperShovel() {
         ItemStack item = ItemStack.of(Material.COPPER_SHOVEL);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 120);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 150);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Forged Copper Shovel"));
 
@@ -316,7 +316,7 @@ public class ItemManager {
     public static @NotNull ItemStack createCopperHammer() {
         ItemStack item = ItemStack.of(Material.COPPER_AXE);
         item.unsetData(DataComponentTypes.TOOL);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 80);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 100);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Crafted Copper Hammer"));
 
@@ -338,7 +338,7 @@ public class ItemManager {
     public static @NotNull ItemStack createForgedCopperHammer() {
         ItemStack item = ItemStack.of(Material.COPPER_AXE);
         item.unsetData(DataComponentTypes.TOOL);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 120);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 150);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Forged Copper Hammer"));
 
@@ -359,7 +359,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createCopperSword() {
         ItemStack item = ItemStack.of(Material.COPPER_SWORD);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 80);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 100);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Crafted Copper Sword"));
 
@@ -377,7 +377,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createForgedCopperSword() {
         ItemStack item = ItemStack.of(Material.COPPER_SWORD);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 120);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 150);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Forged Copper Sword"));
 
@@ -396,6 +396,14 @@ public class ItemManager {
     public static @NotNull ItemStack createHeatedCopper() {
         ItemStack item = ItemStack.of(Material.COPPER_INGOT);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Heated Copper Ingot"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagRequiresFurnaceTier2, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createCopper() {
+        ItemStack item = ItemStack.of(Material.COPPER_INGOT);
 
         FlagHelper.setFlag(item, FlagHelper.flagRequiresFurnaceTier2, true);
 
@@ -473,8 +481,19 @@ public class ItemManager {
         return item;
     }
 
+    public static @NotNull ItemStack createDenseIronOre() {
+        ItemStack item = ItemStack.of(Material.RAW_IRON);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Dense Raw Iron"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagNoPlace, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoBurn, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoCraft, true);
+
+        return item;
+    }
+
     public static @NotNull ItemStack createIronBloom() {
-        ItemStack item = ItemStack.of(Material.ANCIENT_DEBRIS); // Base material for ancient debris
+        ItemStack item = ItemStack.of(Material.ANCIENT_DEBRIS);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Iron Bloom"));
 
         FlagHelper.setFlag(item, FlagHelper.flagNoPlace, true);
@@ -483,6 +502,14 @@ public class ItemManager {
         FlagHelper.setFlag(item, FlagHelper.flagNoCraft, true);
         FlagHelper.setFlag(item, FlagHelper.flagNoSmelt, true);
 
+        return item;
+    }
+
+    public static @NotNull ItemStack createCastIron() {
+        ItemStack item = ItemStack.of(Material.IRON_INGOT);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Cast Iron Ingot"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagRequiresFurnaceTier2, true);
         return item;
     }
 
@@ -495,7 +522,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createWroughtIronPick() {
         ItemStack item = ItemStack.of(Material.IRON_PICKAXE);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 240);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 250);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Wrought Iron Pickaxe"));
 
@@ -524,7 +551,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createWroughtIronAxe() {
         ItemStack item = ItemStack.of(Material.IRON_AXE);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 240);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 250);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Wrought Iron Axe"));
 
@@ -547,7 +574,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createWroughtIronShovel() {
         ItemStack item = ItemStack.of(Material.IRON_SHOVEL);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 240);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 250);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Wrought Iron Shovel"));
 
@@ -571,7 +598,7 @@ public class ItemManager {
     public static @NotNull ItemStack createWroughtIronHammer() {
         ItemStack item = ItemStack.of(Material.IRON_AXE);
         item.unsetData(DataComponentTypes.TOOL);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 240);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 250);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Wrought Iron Hammer"));
 
@@ -592,7 +619,7 @@ public class ItemManager {
 
     public static @NotNull ItemStack createWroughtIronSword() {
         ItemStack item = ItemStack.of(Material.IRON_SWORD);
-        item.setData(DataComponentTypes.MAX_DAMAGE, 240);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 250);
         item.setData(DataComponentTypes.DAMAGE, 0);
         item.setData(DataComponentTypes.ITEM_NAME, Component.text("Wrought Iron Sword"));
 

@@ -16,7 +16,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
-import org.bukkit.event.inventory.FurnaceBurnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 
@@ -41,7 +40,8 @@ public class BlockInteractManager implements Listener {
         }
 
         if (block.getType() == Material.CAMPFIRE) {
-            if (event.getAction().isRightClick() && InventoryHelpers.getUsedItem(p).getType().equals(Material.CLAY)) {
+            if (event.getAction().isRightClick()) {
+                plugin.getLogger().info(p.getInventory().getItem(p.getActiveItemHand()).toString());
                 if (AdvancementManager.Terracotta.getProgression(p) == 0)
                     AdvancementManager.Terracotta.incrementProgression(p);
             }
@@ -56,7 +56,10 @@ public class BlockInteractManager implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         Player p = event.getPlayer();
-        var tool = InventoryHelpers.getUsedItem(p);
+        var tool = InventoryHelpers.getMainhand(p);
+        if (tool.getType().asBlockType() == null || tool.isEmpty()) {
+            tool = InventoryHelpers.getOffhand(p);
+        }
         var block = event.getBlockPlaced();
 
         if (!tool.isEmpty()) {
@@ -112,7 +115,11 @@ public class BlockInteractManager implements Listener {
             var et = event.getEntityType();
             if (et == EntityType.PLAYER) {
                 var p = (Player) event.getEntity();
-                var tool = InventoryHelpers.getUsedItem(p);
+                var tool = InventoryHelpers.getMainhand(p);
+                if (!tool.getType().name().contains("AXE")) {
+                    tool = InventoryHelpers.getOffhand(p);
+                }
+
                 if (FlagHelper.hasFlag(tool, FlagHelper.flagAxe)) {
                     event.setCancelled(true);
                 }

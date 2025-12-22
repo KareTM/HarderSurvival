@@ -46,12 +46,17 @@ public class RecipeKeyList {
     public static final NamespacedKey terracotta = new NamespacedKey(plugin, "terracotta");
     public static final NamespacedKey furnaceCore = new NamespacedKey(plugin, "furnace_core");
     public static final NamespacedKey copperNugget = new NamespacedKey(plugin, "copper_nugget");
+    public static final NamespacedKey copperIngot = new NamespacedKey(plugin, "copper_ingot");
     public static final NamespacedKey copperNuggetBlast = new NamespacedKey(plugin, "copper_nugget_blast");
+    public static final NamespacedKey copperIngotBlast = new NamespacedKey(plugin, "copper_ingot_blast");
     public static final NamespacedKey heatedCopper = new NamespacedKey(plugin, "heated_copper");
     public static final NamespacedKey heatedCopperBlast = new NamespacedKey(plugin, "heated_copper_blast");
     public static final NamespacedKey ironBurden = new NamespacedKey(plugin, "iron_burden");
+    public static final NamespacedKey denseIron = new NamespacedKey(plugin, "dense_iron");
     public static final NamespacedKey ironBloom = new NamespacedKey(plugin, "iron_bloom");
+    public static final NamespacedKey castIron = new NamespacedKey(plugin, "cast_iron");
     public static final NamespacedKey ironBloomBlast = new NamespacedKey(plugin, "iron_bloom_blast");
+    public static final NamespacedKey castIronBlast = new NamespacedKey(plugin, "cast_iron_blast");
     public static final NamespacedKey wroughtIron = new NamespacedKey(plugin, "wrought_iron");
 
     public static NamespacedKey[] planks;

@@ -28,6 +28,7 @@ import java.util.List;
 
 public class CraftManager implements Listener {
     static Plugin plugin;
+
     public CraftManager(Plugin plugin) {
         CraftManager.plugin = plugin;
     }
@@ -44,13 +45,13 @@ public class CraftManager implements Listener {
             GranterBuilder.of(ItemManager.createCopperPick()).grant(AdvancementManager.CopperPick).build(),
             GranterBuilder.of(ItemStack.of(Material.COPPER_INGOT)).discover(RecipeKeyList.copperPick, RecipeKeyList.copperAxe, RecipeKeyList.copperShovel,
                     RecipeKeyList.furnaceCopper, RecipeKeyList.copperHammer, RecipeKeyList.stonecutter, RecipeKeyList.copperSword).build(),
-            GranterBuilder.of(ItemManager.createFurnaceCopper()).grant(AdvancementManager.CopperFurnace).discover(RecipeKeyList.heatedCopper).build(),
+            GranterBuilder.of(ItemManager.createFurnaceCopper()).discover(RecipeKeyList.heatedCopper, RecipeKeyList.copperIngot).grant(AdvancementManager.CopperFurnace).build(),
             GranterBuilder.of(ItemManager.createCopperHammer()).grant(AdvancementManager.HammerTime).build(),
             GranterBuilder.of(ItemManager.createForge()).grant(AdvancementManager.Forge).build(),
             GranterBuilder.of(ItemStack.of(Material.STONECUTTER)).grant(AdvancementManager.Stonecutter).build(),
             GranterBuilder.of(ItemManager.createIronBurden()).discover(RecipeKeyList.ironBloom).grant(AdvancementManager.IronBurden).build(),
-            GranterBuilder.of(ItemManager.createWroughtIronBlastFurnace()).discover(RecipeKeyList.copperNuggetBlast,
-                    RecipeKeyList.heatedCopperBlast, RecipeKeyList.ironBloomBlast).grant(AdvancementManager.BlastFurnace).build()
+            GranterBuilder.of(ItemManager.createWroughtIronBlastFurnace()).discover(RecipeKeyList.copperNuggetBlast, RecipeKeyList.copperIngotBlast,
+                    RecipeKeyList.heatedCopperBlast, RecipeKeyList.ironBloomBlast, RecipeKeyList.castIronBlast).grant(AdvancementManager.BlastFurnace).build()
     ));
 
     static {

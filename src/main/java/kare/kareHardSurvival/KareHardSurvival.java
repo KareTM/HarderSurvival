@@ -70,4 +70,7 @@ public final class KareHardSurvival extends JavaPlugin implements Listener {
         AdvancementLib.disable();
         // Plugin shutdown logic
     }
+
+    // TODO: Log stuff with offhand item weird
+    // TODO: lasting Recipe check for advancement
 }

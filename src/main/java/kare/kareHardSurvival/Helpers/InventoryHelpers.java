@@ -6,13 +6,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerItemBreakEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
 
 public class InventoryHelpers {
-    public static ItemStack getUsedItem(Player p) {
-        var hand = p.getActiveItemHand();
-        return p.getInventory().getItem(hand);
+    public static ItemStack getMainhand(Player p) {
+        return p.getInventory().getItem(EquipmentSlot.HAND);
+    }
+
+    public static ItemStack getOffhand(Player p) {
+        return p.getInventory().getItem(EquipmentSlot.OFF_HAND);
     }
 
     public static void breakItem(Player p, ItemStack tool) {
@@ -22,21 +25,11 @@ public class InventoryHelpers {
     }
 
     public static void damageTool(Player p, ItemStack tool) {
-        tool.editMeta(Damageable.class, itemMeta -> {
-            if (itemMeta.getDamage() + 1 >= itemMeta.getMaxDamage()) {
-                breakItem(p, tool);
-            } else
-                itemMeta.setDamage(itemMeta.getDamage() + 1);
-        });
+        tool.damage(1, p);
     }
 
     public static void damageTool(Player p, ItemStack tool, int damage) {
-        tool.editMeta(Damageable.class, itemMeta -> {
-            if (itemMeta.getDamage() + 1 >= itemMeta.getMaxDamage()) {
-                breakItem(p, tool);
-            } else
-                itemMeta.setDamage(damage);
-        });
+        tool.damage(damage, p);
     }
 
     public static ItemStack getFreshHammer(ItemStack tool) {
@@ -47,6 +40,10 @@ public class InventoryHelpers {
         }
         else if (FlagHelper.hasFlag(tool, FlagHelper.flagHammerTier2)) {
             var hammer = ItemManager.createForgedCopperHammer();
+            hammer.addEnchantments(tool.getEnchantments());
+            return hammer;
+        } else if (FlagHelper.hasFlag(tool, FlagHelper.flagHammerTier3)) {
+            var hammer = ItemManager.createWroughtIronHammer();
             hammer.addEnchantments(tool.getEnchantments());
             return hammer;
         }
