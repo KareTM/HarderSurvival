@@ -1,10 +1,7 @@
 package kare.kareHardSurvival.Items;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.datacomponent.item.ItemAttributeModifiers;
-import io.papermc.paper.datacomponent.item.ItemLore;
-import io.papermc.paper.datacomponent.item.Tool;
-import io.papermc.paper.datacomponent.item.Weapon;
+import io.papermc.paper.datacomponent.item.*;
 import io.papermc.paper.datacomponent.item.attribute.AttributeModifierDisplay;
 import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.set.RegistrySet;
@@ -19,6 +16,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.BlockType;
 import org.bukkit.inventory.EquipmentSlotGroup;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -476,7 +474,7 @@ public class ItemManager {
 
         FlagHelper.setFlag(item, FlagHelper.flagNoPlace, true);
         FlagHelper.setFlag(item, FlagHelper.flagNoBurn, true);
-        FlagHelper.setFlag(item, FlagHelper.flagNoCraft, true);
+        FlagHelper.setFlag(item, FlagHelper.flagCraftOnlyPlugin, true);
 
         return item;
     }
@@ -646,6 +644,130 @@ public class ItemManager {
         return item;
     }
 
+    public static @NotNull ItemStack createCoalCoke() {
+        ItemStack item = ItemStack.of(Material.COAL);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Coal Coke"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagNoPlace, true);
+        FlagHelper.setFlag(item, FlagHelper.flagCraftOnlyPlugin, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoSmelt, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createHeavyBurden() {
+        ItemStack item = ItemStack.of(Material.COAL_BLOCK);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Heavy Iron Burden"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagNoPlace, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoBurn, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoCraft, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createRichBloom() {
+        ItemStack item = ItemStack.of(Material.ANCIENT_DEBRIS);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Rich Iron Bloom"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagNoPlace, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoBurn, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoCraft, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoSmelt, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createPadding() {
+        ItemStack item = ItemStack.of(Material.CREAKING_HEART);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Oven Padding"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagNoPlace, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoBurn, true);
+        FlagHelper.setFlag(item, FlagHelper.flagCraftOnlyPlugin, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoSmelt, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createBlastOven() {
+        ItemStack item = ItemStack.of(Material.BLAST_FURNACE);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Blast Oven"));
+        item.setData(DataComponentTypes.CUSTOM_NAME, Component.text("Blast Oven").decoration(TextDecoration.ITALIC, false));
+
+        FlagHelper.setFlag(item, FlagHelper.flagFurnaceTier4, true);
+        FlagHelper.setFlag(item, FlagHelper.flagFurnace, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createCopperOven() {
+        ItemStack item = ItemStack.of(Material.FURNACE);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Padded Copper Oven"));
+        item.setData(DataComponentTypes.CUSTOM_NAME, Component.text("Padded Copper Oven").decoration(TextDecoration.ITALIC, false));
+
+        FlagHelper.setFlag(item, FlagHelper.flagFurnaceTier3Alt, true);
+        FlagHelper.setFlag(item, FlagHelper.flagFurnace, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createSteelCharge() {
+        ItemStack item = ItemStack.of(Material.COAL_BLOCK);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Charge"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagNoPlace, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoBurn, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoCraft, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createSteelBillet() {
+        ItemStack item = ItemStack.of(Material.TUFF);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Billet"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagRequiresFurnaceTier4, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoPlace, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoBurn, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoCraft, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoSmelt, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createHighCarbonBurden() {
+        ItemStack item = ItemStack.of(Material.COAL_BLOCK);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("High Carbon Burden"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagNoPlace, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoBurn, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoCraft, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createPigIronMass() {
+        ItemStack item = ItemStack.of(Material.DRIPSTONE_BLOCK);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Pig Iron Mass"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagRequiresFurnaceTier4, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoPlace, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoBurn, true);
+        FlagHelper.setFlag(item, FlagHelper.flagNoCraft, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createSteel() {
+        ItemStack item = ItemStack.of(Material.IRON_INGOT);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Ingot"));
+
+        FlagHelper.setFlag(item, FlagHelper.flagCraftOnlyPlugin, true);
+
+        return item;
+    }
+
     private static @NonNull ArrayList<BlockType> getStoneBreakable() {
         var setAll = new HashSet<>(Tag.MINEABLE_PICKAXE.getValues());
         setAll.removeAll(Tag.NEEDS_IRON_TOOL.getValues());
@@ -659,5 +781,199 @@ public class ItemManager {
         var mats = new ArrayList<BlockType>();
         setAll.forEach(mat -> mats.add(Registry.BLOCK.get(mat.getKey())));
         return mats;
+    }
+
+    public static @NotNull ItemStack createSteelPick() {
+        ItemStack item = ItemStack.of(Material.IRON_PICKAXE);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 450);
+        item.setData(DataComponentTypes.DAMAGE, 0);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Pickaxe"));
+
+        var setAll = new HashSet<>(Tag.MINEABLE_PICKAXE.getValues());
+
+        var mats = new ArrayList<BlockType>();
+        setAll.forEach(mat -> mats.add(Registry.BLOCK.get(mat.getKey())));
+
+        var blocks = RegistrySet.keySetFromValues(RegistryKey.BLOCK, mats);
+        item.setData(DataComponentTypes.TOOL, Tool.tool().addRule(Tool.rule(blocks, 6.f, TriState.TRUE)).build());
+
+        item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
+                addModifier(Attribute.ATTACK_DAMAGE, new AttributeModifier(Attribute.ATTACK_DAMAGE.getKey(),
+                                5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 5 Attack Damage").color(NamedTextColor.DARK_GREEN))).
+                addModifier(Attribute.ATTACK_SPEED, new AttributeModifier(Attribute.ATTACK_SPEED.getKey(),
+                                -2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 1.5 Attack Speed").color(NamedTextColor.DARK_GREEN)))
+                .build());
+
+        FlagHelper.setFlag(item, FlagHelper.flagPickTier5, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createSteelAxe() {
+        ItemStack item = ItemStack.of(Material.IRON_AXE);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 450);
+        item.setData(DataComponentTypes.DAMAGE, 0);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Axe"));
+
+        var tk = TagKey.create(RegistryKey.BLOCK, Tag.MINEABLE_AXE.key());
+        var blocks = Registry.BLOCK.getTag(tk);
+
+        item.setData(DataComponentTypes.TOOL, Tool.tool().addRule(Tool.rule(blocks, 6.f, TriState.TRUE)).build());
+
+        item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
+                addModifier(Attribute.ATTACK_DAMAGE, new AttributeModifier(Attribute.ATTACK_DAMAGE.getKey(),
+                                9, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 9 Attack Damage").color(NamedTextColor.DARK_GREEN))).
+                addModifier(Attribute.ATTACK_SPEED, new AttributeModifier(Attribute.ATTACK_SPEED.getKey(),
+                                -3.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 1 Attack Speed").color(NamedTextColor.DARK_GREEN)))
+                .build());
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createSteelShovel() {
+        ItemStack item = ItemStack.of(Material.IRON_SHOVEL);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 450);
+        item.setData(DataComponentTypes.DAMAGE, 0);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Shovel"));
+
+        var tk = TagKey.create(RegistryKey.BLOCK, Tag.MINEABLE_SHOVEL.key());
+        var blocks = Registry.BLOCK.getTag(tk);
+
+        item.setData(DataComponentTypes.TOOL, Tool.tool().addRule(Tool.rule(blocks, 6.f, TriState.TRUE)).build());
+
+        item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
+                addModifier(Attribute.ATTACK_DAMAGE, new AttributeModifier(Attribute.ATTACK_DAMAGE.getKey(),
+                                5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 5 Attack Damage").color(NamedTextColor.DARK_GREEN))).
+                addModifier(Attribute.ATTACK_SPEED, new AttributeModifier(Attribute.ATTACK_SPEED.getKey(),
+                                -2.8, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 1.2 Attack Speed").color(NamedTextColor.DARK_GREEN)))
+                .build());
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createSteelHammer() {
+        ItemStack item = ItemStack.of(Material.IRON_AXE);
+        item.unsetData(DataComponentTypes.TOOL);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 450);
+        item.setData(DataComponentTypes.DAMAGE, 0);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Hammer"));
+
+        item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
+                addModifier(Attribute.ATTACK_DAMAGE, new AttributeModifier(Attribute.ATTACK_DAMAGE.getKey(),
+                                10, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 10 Attack Damage").color(NamedTextColor.DARK_GREEN))).
+                addModifier(Attribute.ATTACK_SPEED, new AttributeModifier(Attribute.ATTACK_SPEED.getKey(),
+                                -3.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 0.5 Attack Speed").color(NamedTextColor.DARK_GREEN)))
+                .build());
+
+        FlagHelper.setFlag(item, FlagHelper.flagHammer, true);
+        FlagHelper.setFlag(item, FlagHelper.flagHammerTier4, true);
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createSteelSword() {
+        ItemStack item = ItemStack.of(Material.IRON_SWORD);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 450);
+        item.setData(DataComponentTypes.DAMAGE, 0);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Sword"));
+
+        item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
+                addModifier(Attribute.ATTACK_DAMAGE, new AttributeModifier(Attribute.ATTACK_DAMAGE.getKey(),
+                                7, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 7 Attack Damage").color(NamedTextColor.DARK_GREEN))).
+                addModifier(Attribute.ATTACK_SPEED, new AttributeModifier(Attribute.ATTACK_SPEED.getKey(),
+                                -2.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 2 Attack Speed").color(NamedTextColor.DARK_GREEN)))
+                .build());
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createSteelHelmet() {
+        ItemStack item = ItemStack.of(Material.LEATHER_HELMET);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 450);
+        item.setData(DataComponentTypes.DAMAGE, 0);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Helmet"));
+
+        item.setData(DataComponentTypes.DYED_COLOR, DyedItemColor.dyedItemColor(Color.WHITE));
+
+        item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
+                addModifier(Attribute.ARMOR, new AttributeModifier(Attribute.ARMOR.getKey(),
+                                3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD)).
+                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(Attribute.ARMOR_TOUGHNESS.getKey(),
+                                1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD))
+                .build());
+
+        ItemEditor.editMeta(item, m -> m.addItemFlags(ItemFlag.HIDE_DYE));
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createSteelChestplate() {
+        ItemStack item = ItemStack.of(Material.LEATHER_CHESTPLATE);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 450);
+        item.setData(DataComponentTypes.DAMAGE, 0);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Chestplate"));
+
+        item.setData(DataComponentTypes.DYED_COLOR, DyedItemColor.dyedItemColor(Color.WHITE));
+
+        item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
+                addModifier(Attribute.ARMOR, new AttributeModifier(Attribute.ARMOR.getKey(),
+                        7, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST)).
+                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(Attribute.ARMOR_TOUGHNESS.getKey(),
+                        1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
+                .build());
+
+        ItemEditor.editMeta(item, m -> m.addItemFlags(ItemFlag.HIDE_DYE));
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createSteelLeggings() {
+        ItemStack item = ItemStack.of(Material.LEATHER_LEGGINGS);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 450);
+        item.setData(DataComponentTypes.DAMAGE, 0);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Leggings"));
+
+        item.setData(DataComponentTypes.DYED_COLOR, DyedItemColor.dyedItemColor(Color.WHITE));
+
+        item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
+                addModifier(Attribute.ARMOR, new AttributeModifier(Attribute.ARMOR.getKey(),
+                        6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS)).
+                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(Attribute.ARMOR_TOUGHNESS.getKey(),
+                        1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
+                .build());
+
+        ItemEditor.editMeta(item, m -> m.addItemFlags(ItemFlag.HIDE_DYE));
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createSteelBoots() {
+        ItemStack item = ItemStack.of(Material.LEATHER_BOOTS);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 450);
+        item.setData(DataComponentTypes.DAMAGE, 0);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Boots"));
+
+        item.setData(DataComponentTypes.DYED_COLOR, DyedItemColor.dyedItemColor(Color.WHITE));
+
+        item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
+                addModifier(Attribute.ARMOR, new AttributeModifier(Attribute.ARMOR.getKey(),
+                        3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET)).
+                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(Attribute.ARMOR_TOUGHNESS.getKey(),
+                        1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET))
+                .build());
+
+        ItemEditor.editMeta(item, m -> m.addItemFlags(ItemFlag.HIDE_DYE));
+
+        return item;
     }
 }

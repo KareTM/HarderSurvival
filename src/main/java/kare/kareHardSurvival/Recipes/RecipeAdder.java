@@ -55,6 +55,18 @@ public class RecipeAdder {
         s.addRecipe(ironBurden());
         s.addRecipe(denseIronOre());
         s.addRecipe(furnaceIron());
+        s.addRecipe(coalCoke());
+        s.addRecipe(charcoalCoke());
+        s.addRecipe(heavyBurden());
+        s.addRecipe(richBloom());
+        s.addRecipe(ovenPadding());
+        s.addRecipe(furnaceNether());
+        s.addRecipe(furnaceCopperUpgrade());
+        s.addRecipe(steelCharge());
+        s.addRecipe(steelBillet());
+        s.addRecipe(highCarbonBurden());
+        s.addRecipe(pigIronMass());
+        s.addRecipe(steelBilletFromPigIron());
 
         for (var recipe : planksSplitting())
             s.addRecipe(recipe);
@@ -356,6 +368,104 @@ public class RecipeAdder {
         recipe.setIngredient('F', new RecipeChoice.ExactChoice(ItemManager.createFurnaceCore()));
 
         return recipe;
+    }
+
+    BlastingRecipe coalCoke() {
+        var item = ItemManager.createCoalCoke();
+
+        return new BlastingRecipe(RecipeKeyList.coalCoke, item, new RecipeChoice.ExactChoice(ItemStack.of(Material.COAL)), 0.2f, 800);
+    }
+
+    BlastingRecipe charcoalCoke() {
+        var item = ItemManager.createCoalCoke();
+
+        return new BlastingRecipe(RecipeKeyList.charcoalCoke, item, new RecipeChoice.ExactChoice(ItemStack.of(Material.CHARCOAL)), 0.2f, 1000);
+    }
+
+    ShapedRecipe heavyBurden() {
+        var item = ItemManager.createHeavyBurden();
+        ShapedRecipe recipe = new ShapedRecipe(RecipeKeyList.heavyBurden, item);
+        recipe.shape("CIC", "ICI", "CIC");
+        recipe.setIngredient('I', Material.RAW_IRON_BLOCK);
+        recipe.setIngredient('C', new RecipeChoice.ExactChoice(ItemManager.createCoalCoke()));
+
+        return recipe;
+    }
+
+    BlastingRecipe richBloom() {
+        var item = ItemManager.createRichBloom();
+
+        return new BlastingRecipe(RecipeKeyList.richBloom, item, new RecipeChoice.ExactChoice(ItemManager.createHeavyBurden()), 2.0f, 800);
+    }
+
+    ShapedRecipe ovenPadding() {
+        var item = ItemManager.createPadding();
+        ShapedRecipe recipe = new ShapedRecipe(RecipeKeyList.ovenPadding, item);
+        recipe.shape("CIC", "ICI", "CIC");
+        recipe.setIngredient('I', new RecipeChoice.ExactChoice(ItemManager.createWroughtIron()));
+        recipe.setIngredient('C', Material.NETHER_BRICKS);
+
+        return recipe;
+    }
+
+    ShapedRecipe furnaceNether() {
+        var item = ItemManager.createBlastOven();
+
+        ShapedRecipe recipe = new ShapedRecipe(RecipeKeyList.furnaceNether, item);
+        recipe.shape("PPP", "PFP", "PPP");
+        recipe.setIngredient('P', new RecipeChoice.ExactChoice(ItemManager.createPadding()));
+        recipe.setIngredient('F', new RecipeChoice.ExactChoice(ItemManager.createFurnaceCore()));
+
+        return recipe;
+    }
+
+    ShapedRecipe furnaceCopperUpgrade() {
+        var item = ItemManager.createCopperOven();
+
+        ShapedRecipe recipe = new ShapedRecipe(RecipeKeyList.furnaceCopperUpgrade, item);
+        recipe.shape(" P ", "PFP", " P ");
+        recipe.setIngredient('P', new RecipeChoice.ExactChoice(ItemManager.createPadding()));
+        recipe.setIngredient('F', new RecipeChoice.ExactChoice(ItemManager.createFurnaceCopper()));
+
+        return recipe;
+    }
+
+    ShapedRecipe steelCharge() {
+        var item = ItemManager.createSteelCharge();
+        ShapedRecipe recipe = new ShapedRecipe(RecipeKeyList.steelCharge, item);
+        recipe.shape(" C ", "CIC", " C ");
+        recipe.setIngredient('I', new RecipeChoice.ExactChoice(ItemManager.createWroughtIron()));
+        recipe.setIngredient('C', Material.COAL);
+
+        return recipe;
+    }
+
+    BlastingRecipe steelBillet() {
+        var item = ItemManager.createSteelBillet();
+
+        return new BlastingRecipe(RecipeKeyList.steelBillet, item, new RecipeChoice.ExactChoice(ItemManager.createSteelCharge()), 3.0f, 1600);
+    }
+
+    ShapedRecipe highCarbonBurden() {
+        var item = ItemManager.createHighCarbonBurden();
+        ShapedRecipe recipe = new ShapedRecipe(RecipeKeyList.highCarbonBurden, item);
+        recipe.shape("CCC", "CBC", "CCC");
+        recipe.setIngredient('B', new RecipeChoice.ExactChoice(ItemManager.createIronBurden()));
+        recipe.setIngredient('C', Material.COAL);
+
+        return recipe;
+    }
+
+    BlastingRecipe pigIronMass() {
+        var item = ItemManager.createPigIronMass();
+
+        return new BlastingRecipe(RecipeKeyList.pigIronMass, item, new RecipeChoice.ExactChoice(ItemManager.createHighCarbonBurden()), 1.0f, 800);
+    }
+
+    BlastingRecipe steelBilletFromPigIron() {
+        var item = ItemManager.createSteelBillet();
+
+        return new BlastingRecipe(RecipeKeyList.steelBilletFromPigIron, item, new RecipeChoice.ExactChoice(ItemManager.createPigIronMass()), 3.0f, 2000);
     }
 
     List<ShapelessRecipe> planksSplitting() {

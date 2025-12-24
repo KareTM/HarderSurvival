@@ -48,8 +48,8 @@ public final class KareHardSurvival extends JavaPlugin implements Listener {
         CraftManager cm = new CraftManager(this);
         getServer().getPluginManager().registerEvents(cm, this);
 
-        JoinManager jm = new JoinManager();
-        getServer().getPluginManager().registerEvents(jm, this);
+        PlayerManager pm = new PlayerManager();
+        getServer().getPluginManager().registerEvents(pm, this);
 
         ItemPickupManager ipm = new ItemPickupManager(this);
         getServer().getPluginManager().registerEvents(ipm, this);

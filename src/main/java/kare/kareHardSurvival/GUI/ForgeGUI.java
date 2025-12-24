@@ -7,12 +7,8 @@ import com.github.stefvanschie.inventoryframework.pane.Pane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import io.papermc.paper.datacomponent.DataComponentTypes;
-import kare.kareHardSurvival.Advancements.AdvancementManager;
 import kare.kareHardSurvival.Helpers.*;
-import kare.kareHardSurvival.Helpers.Granter.Granter;
-import kare.kareHardSurvival.Helpers.Granter.GranterBuilder;
 import kare.kareHardSurvival.Items.ItemEditor;
-import kare.kareHardSurvival.Items.ItemManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -25,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemRarity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -39,19 +36,7 @@ public class ForgeGUI {
     private final ForgeData data;
     private final Plugin plugin = Bukkit.getPluginManager().getPlugin("KareHardSurvival");
 
-    List<Granter> rules = List.of(
-            GranterBuilder.of(ItemManager.createForgedCopperPick()).grant(AdvancementManager.ForgedPickaxe).build(),
-            GranterBuilder.of(ItemManager.createForgedCopperHammer()).grant(AdvancementManager.ForgedHammer).build(),
-            GranterBuilder.of(ItemStack.of(Material.COPPER_HELMET))
-                    .addItems(List.of(ItemStack.of(Material.COPPER_CHESTPLATE), ItemStack.of(Material.COPPER_LEGGINGS),
-                            ItemStack.of(Material.COPPER_BOOTS))).grant(AdvancementManager.SuitedUp).build(),
-            GranterBuilder.of(ItemManager.createWroughtIron()).discover(RecipeKeyList.furnaceIron).grant(AdvancementManager.WroughtIron).build(),
-            GranterBuilder.of(ItemManager.createWroughtIronHammer()).grant(AdvancementManager.IronHammer).build(),
-            GranterBuilder.of(ItemManager.createWroughtIronPick()).grant(AdvancementManager.IronPick).build(),
-            GranterBuilder.of(ItemStack.of(Material.IRON_HELMET))
-                    .addItems(List.of(ItemStack.of(Material.IRON_CHESTPLATE), ItemStack.of(Material.IRON_LEGGINGS),
-                            ItemStack.of(Material.IRON_BOOTS))).grant(AdvancementManager.IronArmor).build()
-    );
+    private Runnable recipeCallback;
 
     private static final Map<Block, ForgeGUI> existing = new HashMap<>();
 
@@ -88,7 +73,7 @@ public class ForgeGUI {
         OutlinePane bg = new OutlinePane(0, 0, 9, 4);
         var pane = ItemStack.of(Material.GRAY_STAINED_GLASS_PANE);
         var meta = pane.getItemMeta();
-        meta.displayName(Component.text(""));
+        meta.itemName(Component.text(""));
         pane.setItemMeta(meta);
 
         bg.addItem(new GuiItem(pane, e -> e.setCancelled(true)));
@@ -112,6 +97,7 @@ public class ForgeGUI {
                         data.hammer = item;
                         hammerWrapper.item = data.hammer;
                         save();
+                        recipeCallback.run();
                         update();
 
                         return true;
@@ -119,7 +105,7 @@ public class ForgeGUI {
                     return false;
                 },
                 ItemEditor.editMeta(ItemStack.of(Material.LIME_STAINED_GLASS_PANE),
-                        itemMeta -> itemMeta.displayName(Component.text("Insert Hammer").decoration(TextDecoration.ITALIC, false))));
+                        itemMeta -> itemMeta.itemName(Component.text("Insert Hammer"))));
         gui.addPane(hammerSlot.pane);
 
         var wrapperMat1 = new ItemWrapper(data.material1);
@@ -132,7 +118,7 @@ public class ForgeGUI {
                     return true;
                 },
                 ItemEditor.editMeta(ItemStack.of(Material.LIME_STAINED_GLASS_PANE),
-                        itemMeta -> itemMeta.displayName(Component.text("Insert Materials").decoration(TextDecoration.ITALIC, false))));
+                        itemMeta -> itemMeta.itemName(Component.text("Insert Materials"))));
         // Material 1
         gui.addPane(matSlot1.pane);
 
@@ -146,7 +132,7 @@ public class ForgeGUI {
                     return true;
                 },
                 ItemEditor.editMeta(ItemStack.of(Material.LIME_STAINED_GLASS_PANE),
-                        itemMeta -> itemMeta.displayName(Component.text("Insert Materials").decoration(TextDecoration.ITALIC, false))));
+                        itemMeta -> itemMeta.itemName(Component.text("Insert Materials"))));
         // Material 2
         gui.addPane(matSlot2.pane);
 
@@ -230,11 +216,7 @@ public class ForgeGUI {
                 sequence = new ArrayList<>();
                 var vals = ForgeAction.values();
 
-                int usedCount = (int) Math.round((100.0 - ForgeRecipes.getReduction(data.hammer)) * recipe.actionCount / 100.0);
-                if (usedCount <= 0) {
-                    usedCount = 1;
-                }
-
+                int usedCount = Math.max((int) Math.round((100.0 - ForgeRecipes.getReduction(data.hammer)) * recipe.actionCount / 100.0), 1);
                 for (int i = 0; i < usedCount; i++)
                     sequence.add(vals[r.nextInt(vals.length)]);
             }
@@ -255,7 +237,10 @@ public class ForgeGUI {
 
                     ItemStack display =
                             ItemEditor.editMeta(itemForAction(action).clone(),
-                                    m -> m.itemName(Component.text("Watch: " + action.name()).color(NamedTextColor.WHITE)));
+                                    m -> {
+                                        m.itemName(Component.text("Watch: " + action.name()));
+                                        m.setRarity(ItemRarity.COMMON);
+                                    });
 
                     addItem(new GuiItem(display, e -> e.setCancelled(true)), 0, 0);
                     update();
@@ -321,7 +306,7 @@ public class ForgeGUI {
                     }
                 }
 
-                InventoryHelpers.damageTool(player, data.hammer);
+                InventoryHelpers.damageToolConsiderUnbreaking(player, data.hammer);
                 if (data.hammer.isEmpty()) {
                     data.hammer = null;
                     save();
@@ -371,7 +356,7 @@ public class ForgeGUI {
 
                     block.getWorld().dropItemNaturally(block.getLocation().add(0, 1, 0).toCenterLocation(), recipe.output);
                     gui.getViewers().getFirst().closeInventory();
-                    for (var rule : rules) {
+                    for (var rule : ForgeRecipes.rules) {
                         if (rule.items().contains(recipe.output))
                             rule.grant().accept(player);
                     }
@@ -409,12 +394,17 @@ public class ForgeGUI {
         };
         gui.addPane(forgeMinigame);
 
-        // Recipe select button
-        gui.addPane(new StaticPane(6, 0, 1, 1) {
+        var recipePane = new StaticPane(6, 0, 1, 1) {
             {
                 addItem(
                         new GuiItem(createRecipeSelectItem(), this::recipeSelect), 0, 0
                 );
+
+                recipeCallback = () -> {
+                    this.removeItem(0, 0);
+                    this.addItem(new GuiItem(createRecipeSelectItem(), this::recipeSelect), 0, 0);
+                    update();
+                };
             }
 
             private void recipeSelect(InventoryClickEvent e) {
@@ -426,7 +416,6 @@ public class ForgeGUI {
 
                 new RecipeSelectGUI(
                         p,
-                        data.selectedRecipe,
                         key -> {
                             data.selectedRecipe = key;
                             save();
@@ -435,13 +424,13 @@ public class ForgeGUI {
                             addItem(new GuiItem(createRecipeSelectItem(), this::recipeSelect), 0, 0);
                             update();
 
-                            Bukkit.getScheduler().runTask(plugin, () -> {
-                                gui.show(p);
-                            });
+                            Bukkit.getScheduler().runTask(plugin, () -> gui.show(p));
                         }
                 ).open(p);
             }
-        });
+        };
+        // Recipe select button
+        gui.addPane(recipePane);
 
 
         gui.addPane(new StaticPane(2, 3, 5, 1) {
@@ -587,7 +576,7 @@ public class ForgeGUI {
         {
             var name = (TextComponent) finalRecipe.name;
             meta.itemName(Component.text("Selected Recipe - " + name.content()));
-            ForgeRecipes.recipeLore(meta, finalRecipe);
+            ForgeRecipes.recipeLore(meta, finalRecipe, ForgeRecipes.getReduction(data.hammer));
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         });
     }
@@ -618,18 +607,22 @@ public class ForgeGUI {
 
     private final ItemStack hammerActionItem = ItemEditor.editMeta(ItemStack.of(Material.MACE),
             meta -> {
-                meta.itemName(Component.text("Hammer").color(NamedTextColor.WHITE));
+                meta.itemName(Component.text("Hammer"));
                 meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                meta.setRarity(ItemRarity.COMMON);
             });
     private final ItemStack punchActionItem = ItemEditor.editMeta(ItemStack.of(Material.POINTED_DRIPSTONE),
-            meta -> meta.itemName(Component.text("Punch").decoration(TextDecoration.ITALIC, false)));
+            meta -> meta.itemName(Component.text("Punch")));
     private final ItemStack tightenActionItem = ItemEditor.editMeta(ItemStack.of(Material.SHEARS),
-            meta -> meta.itemName(Component.text("Tighten").decoration(TextDecoration.ITALIC, false)));
+            meta -> meta.itemName(Component.text("Tighten")));
     private final ItemStack bendActionItem = ItemEditor.editDataComponent(ItemEditor.editMeta(ItemStack.of(Material.GOAT_HORN),
-                    meta -> meta.itemName(Component.text("Bend").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE))),
+                    meta -> {
+                        meta.itemName(Component.text("Bend"));
+                        meta.setRarity(ItemRarity.COMMON);
+                    }),
             item -> item.unsetData(DataComponentTypes.INSTRUMENT));
     private final ItemStack polishActionItem = ItemEditor.editMeta(ItemStack.of(Material.PAPER),
-            meta -> meta.itemName(Component.text("Polish").decoration(TextDecoration.ITALIC, false)));
+            meta -> meta.itemName(Component.text("Polish")));
 
     private enum ForgeAction {
         HAMMER,

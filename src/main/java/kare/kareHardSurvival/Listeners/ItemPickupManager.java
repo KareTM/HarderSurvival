@@ -26,8 +26,9 @@ public class ItemPickupManager implements Listener {
             GranterBuilder.of(ItemStack.of(Material.TERRACOTTA)).discover(RecipeKeyList.furnace)
                     .grant(AdvancementManager.Terracotta).condition(p -> AdvancementManager.Terracotta.getProgression(p) != 0).build(),
             GranterBuilder.of(ItemStack.of(Material.COBBLESTONE)).discover(RecipeKeyList.furnaceCore).build(),
-            GranterBuilder.of(ItemStack.of(Material.RAW_IRON)).discover(RecipeKeyList.ironBurden, RecipeKeyList.denseIron).build()
-    );
+            GranterBuilder.of(ItemStack.of(Material.RAW_IRON)).discover(RecipeKeyList.ironBurden, RecipeKeyList.denseIron).build(),
+            GranterBuilder.of(ItemStack.of(Material.NETHER_BRICK)).discover(RecipeKeyList.ovenPadding).build()
+            );
 
     @EventHandler
     public void onItemPickup(EntityPickupItemEvent event) {

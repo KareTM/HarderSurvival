@@ -24,15 +24,24 @@ public class RecipeKeyList {
     public static final NamespacedKey ironShovel = new NamespacedKey(plugin, "iron_shovel");
     public static final NamespacedKey ironHammer = new NamespacedKey(plugin, "iron_hammer");
     public static final NamespacedKey ironSword = new NamespacedKey(plugin, "iron_sword");
+    public static final NamespacedKey steelPick = new NamespacedKey(plugin, "steel_pick");
+    public static final NamespacedKey steelAxe = new NamespacedKey(plugin, "steel_axe");
+    public static final NamespacedKey steelShovel = new NamespacedKey(plugin, "steel_shovel");
+    public static final NamespacedKey steelHammer = new NamespacedKey(plugin, "steel_hammer");
+    public static final NamespacedKey steelSword = new NamespacedKey(plugin, "steel_sword");
 
     public static final NamespacedKey copperHelmet = new NamespacedKey(plugin, "copper_helmet");
     public static final NamespacedKey copperChestplate = new NamespacedKey(plugin, "copper_chestplate");
-    public static final NamespacedKey copperLeggings= new NamespacedKey(plugin, "copper_leggings");
+    public static final NamespacedKey copperLeggings = new NamespacedKey(plugin, "copper_leggings");
     public static final NamespacedKey copperBoots = new NamespacedKey(plugin, "copper_boots");
     public static final NamespacedKey ironHelmet = new NamespacedKey(plugin, "iron_helmet");
     public static final NamespacedKey ironChestplate = new NamespacedKey(plugin, "iron_chestplate");
-    public static final NamespacedKey ironLeggings= new NamespacedKey(plugin, "iron_leggings");
+    public static final NamespacedKey ironLeggings = new NamespacedKey(plugin, "iron_leggings");
     public static final NamespacedKey ironBoots = new NamespacedKey(plugin, "iron_boots");
+    public static final NamespacedKey steelHelmet = new NamespacedKey(plugin, "steel_helmet");
+    public static final NamespacedKey steelChestplate = new NamespacedKey(plugin, "steel_chestplate");
+    public static final NamespacedKey steelLeggings = new NamespacedKey(plugin, "steel_leggings");
+    public static final NamespacedKey steelBoots = new NamespacedKey(plugin, "steel_boots");
 
     public static final NamespacedKey unfinishedCraftingTable = new NamespacedKey(plugin, "unfinished_crafting_table");
     public static final NamespacedKey campfire = new NamespacedKey(plugin, "campfire");
@@ -41,6 +50,8 @@ public class RecipeKeyList {
     public static final NamespacedKey forge = new NamespacedKey(plugin, "forge");
     public static final NamespacedKey stonecutter = new NamespacedKey(plugin, "stonecutter");
     public static final NamespacedKey furnaceIron = new NamespacedKey(plugin, "furnace_iron");
+    public static final NamespacedKey furnaceNether = new NamespacedKey(plugin, "furnace_nether");
+    public static final NamespacedKey furnaceCopperUpgrade = new NamespacedKey(plugin, "furnace_copper_upgrade");
 
     public static final NamespacedKey twine = new NamespacedKey(plugin, "twine");
     public static final NamespacedKey terracotta = new NamespacedKey(plugin, "terracotta");
@@ -58,6 +69,18 @@ public class RecipeKeyList {
     public static final NamespacedKey ironBloomBlast = new NamespacedKey(plugin, "iron_bloom_blast");
     public static final NamespacedKey castIronBlast = new NamespacedKey(plugin, "cast_iron_blast");
     public static final NamespacedKey wroughtIron = new NamespacedKey(plugin, "wrought_iron");
+    public static final NamespacedKey coalCoke = new NamespacedKey(plugin, "coal_coke");
+    public static final NamespacedKey charcoalCoke = new NamespacedKey(plugin, "charcoal_coke");
+    public static final NamespacedKey heavyBurden = new NamespacedKey(plugin, "heavy_burden");
+    public static final NamespacedKey richBloom = new NamespacedKey(plugin, "rich_bloom");
+    public static final NamespacedKey wroughtIronRich = new NamespacedKey(plugin, "wrought_iron_rich");
+    public static final NamespacedKey ovenPadding = new NamespacedKey(plugin, "oven_padding");
+    public static final NamespacedKey steelCharge = new NamespacedKey(plugin, "steel_charge");
+    public static final NamespacedKey steelBillet = new NamespacedKey(plugin, "steel_billet");
+    public static final NamespacedKey steelBilletFromPigIron = new NamespacedKey(plugin, "steel_billet_pig_iron");
+    public static final NamespacedKey highCarbonBurden = new NamespacedKey(plugin, "high_carbon_burden");
+    public static final NamespacedKey pigIronMass = new NamespacedKey(plugin, "pig_iron_mass");
+    public static final NamespacedKey steelIngot = new NamespacedKey(plugin, "steel_ingot");
 
     public static NamespacedKey[] planks;
     public static NamespacedKey[] planksCut;

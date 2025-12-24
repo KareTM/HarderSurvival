@@ -50,6 +50,20 @@ public class AdvancementManager {
     public static BaseAdvancement IronPick;
     public static BaseAdvancement IronArmor;
     public static BaseAdvancement BlastFurnace;
+    public static BaseAdvancement Coke;
+    public static BaseAdvancement RichBloom;
+    public static BaseAdvancement Nether;
+    public static BaseAdvancement Padding;
+    public static BaseAdvancement CopperFurnaceUpgrade;
+    public static MultiParentsAdvancement Oven;
+    public static BaseAdvancement SteelCharge;
+    public static BaseAdvancement CarbonBurden;
+    public static BaseAdvancement PigIron;
+    public static MultiParentsAdvancement SteelBillet;
+    public static BaseAdvancement SteelIngot;
+    public static BaseAdvancement SteelHammer;
+    public static BaseAdvancement SteelPick;
+    public static BaseAdvancement SteelArmor;
 
 
     Plugin plugin;
@@ -99,6 +113,20 @@ public class AdvancementManager {
         AdvancementKey ironPickKey = new AdvancementKey(tab.getNamespace(), "iron_pick");
         AdvancementKey ironArmorKey = new AdvancementKey(tab.getNamespace(), "iron_armor");
         AdvancementKey blastFurnaceKey = new AdvancementKey(tab.getNamespace(), "blast_furnace");
+        AdvancementKey cokeKey = new AdvancementKey(tab.getNamespace(), "coke");
+        AdvancementKey richBloomKey = new AdvancementKey(tab.getNamespace(), "rich_bloom");
+        AdvancementKey netherKey = new AdvancementKey(tab.getNamespace(), "nether");
+        AdvancementKey paddingKey = new AdvancementKey(tab.getNamespace(), "padding");
+        AdvancementKey ovenKey = new AdvancementKey(tab.getNamespace(), "oven");
+        AdvancementKey copperUpgradeKey = new AdvancementKey(tab.getNamespace(), "copper_upgrade");
+        AdvancementKey carbonBurdenKey = new AdvancementKey(tab.getNamespace(), "carbon_burden");
+        AdvancementKey steelChargeKey = new AdvancementKey(tab.getNamespace(), "steel_charge");
+        AdvancementKey pigIronKey = new AdvancementKey(tab.getNamespace(), "pig_iron");
+        AdvancementKey steelBilletKey = new AdvancementKey(tab.getNamespace(), "steel_billet");
+        AdvancementKey steelIngotKey = new AdvancementKey(tab.getNamespace(), "steel_ingot");
+        AdvancementKey steelHammerKey = new AdvancementKey(tab.getNamespace(), "steel_hammer");
+        AdvancementKey steelPickKey = new AdvancementKey(tab.getNamespace(), "steel_pick");
+        AdvancementKey steelArmorKey = new AdvancementKey(tab.getNamespace(), "steel_armor");
 
         CoordAdapter coordAdapter = CoordAdapter.builder().add(pluginKey, -2f, 0f).
                 add(no_logKey, -1f, 0f).
@@ -135,6 +163,20 @@ public class AdvancementManager {
                 add(ironPickKey, 17f, 0f).
                 add(blastFurnaceKey, 17f, 1f).
                 add(ironArmorKey, 17f, 2f).
+                add(netherKey, 18f, 0f).
+                add(cokeKey, 18f, 1f).
+                add(richBloomKey, 19f, 2f).
+                add(paddingKey, 19f, 0f).
+                add(copperUpgradeKey, 20f, -1f).
+                add(ovenKey, 20f, 1f).
+                add(steelChargeKey, 21f, 1f).
+                add(carbonBurdenKey, 21f, 0f).
+                add(pigIronKey, 22f, 0f).
+                add(steelBilletKey, 23f, 1f).
+                add(steelIngotKey, 24f, 1f).
+                add(steelArmorKey, 25f, -1f).
+                add(steelPickKey, 25f, 0f).
+                add(steelHammerKey, 25f, 1f).
                 build();
 
 
@@ -244,11 +286,55 @@ public class AdvancementManager {
         BlastFurnace = new ParentVisibleBaseAdvancement(blastFurnaceKey.getKey(), new AdvancementDisplay(ItemManager.createWroughtIronBlastFurnace(), "Blast It", AdvancementFrameType.TASK,
                 true, true, coordAdapter.getX(blastFurnaceKey), coordAdapter.getY(blastFurnaceKey),
                 "Craft a Blast Furnace, the fastest furnace to date, cannot use Charcoal"), WroughtIron, 1);
+        Coke = new ParentVisibleBaseAdvancement(cokeKey.getKey(), new AdvancementDisplay(ItemManager.createCoalCoke(), "Cooked & Charred", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(cokeKey), coordAdapter.getY(cokeKey),
+                "Smelt Coal (slow) or Charcoal (slower) into Coal Coke, which burns hotter, not necessarily longer"), BlastFurnace, 1);
+        RichBloom = new ParentVisibleBaseAdvancement(richBloomKey.getKey(), new AdvancementDisplay(ItemManager.createRichBloom(), "Become Rich", AdvancementFrameType.GOAL,
+                true, true, coordAdapter.getX(richBloomKey), coordAdapter.getY(richBloomKey),
+                "With your new Coal Coke, craft a Heavy Burden, to smelt into Rich Bloom, netting you a bulk way of forging Wrought Iron"), Coke, 1);
+        Nether = new ParentVisibleBaseAdvancement(netherKey.getKey(), new AdvancementDisplay(ItemStack.of(Material.OBSIDIAN), "Down Below", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(netherKey), coordAdapter.getY(netherKey),
+                "Venture down, into the depths, the Nether awaits"), IronPick, 1);
+        Padding = new ParentVisibleBaseAdvancement(paddingKey.getKey(), new AdvancementDisplay(ItemManager.createPadding(), "They Put Me in a Padded Room", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(paddingKey), coordAdapter.getY(paddingKey),
+                "Mine out (or smelt and craft) some Nether Bricks, to create Oven Padding for your new furnace"), Nether, 1);
+        Oven = new ParentVisibleMultiParentAdvancement(ovenKey.getKey(), new AdvancementDisplay(ItemManager.createBlastOven(), "Not for Baking", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(ovenKey), coordAdapter.getY(ovenKey),
+                "Craft a Blast Oven, faster, but requires improving your fuel to Coal Coke, Blaze Rods or Lava"), 1, Padding, Coke);
+        CopperFurnaceUpgrade = new ParentVisibleBaseAdvancement(copperUpgradeKey.getKey(), new AdvancementDisplay(ItemManager.createCopperOven(), "Blast from the Past", AdvancementFrameType.GOAL,
+                true, true, coordAdapter.getX(copperUpgradeKey), coordAdapter.getY(copperUpgradeKey),
+                "Craft a Padded Copper Oven, using your Copper Plated Furnaces and this new nifty Padding, which will massively speed up the furnace, " +
+                        "at the cost of losing the ability to use Charcoal as fuel"), Padding, 1);
+        SteelCharge = new ParentVisibleBaseAdvancement(steelChargeKey.getKey(), new AdvancementDisplay(ItemManager.createSteelCharge(), "Charge Ahead", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(steelChargeKey), coordAdapter.getY(steelChargeKey),
+                "Craft a Steel Charge, a way to turn your Wrought Iron Ingots into Steel"), Oven, 1);
+        CarbonBurden = new ParentVisibleBaseAdvancement(carbonBurdenKey.getKey(), new AdvancementDisplay(ItemManager.createHighCarbonBurden(), "Burdensome", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(carbonBurdenKey), coordAdapter.getY(carbonBurdenKey),
+                "Craft a High Carbon Burden, which prepares Iron Burdens for Steel processing, may be more expensive but bypasses forging Wrought Iron"), Oven, 1);
+        PigIron = new ParentVisibleBaseAdvancement(pigIronKey.getKey(), new AdvancementDisplay(ItemManager.createPigIronMass(), "Oink?", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(pigIronKey), coordAdapter.getY(pigIronKey),
+                "After smelting the Burden, a Pig Iron Mass is created, an intermediary step in your Steel making process"), CarbonBurden, 1);
+        SteelBillet = new OneParentVisibleMultiParentAdvancement(steelBilletKey.getKey(), new AdvancementDisplay(ItemManager.createSteelBillet(), "Still a Little Raw", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(steelBilletKey), coordAdapter.getY(steelBilletKey),
+                "Obtain the Steel Billet, smelting from either Steel Charge or from Pig Iron Mass"), 1, SteelCharge, PigIron);
+        SteelIngot = new ParentVisibleBaseAdvancement(steelIngotKey.getKey(), new AdvancementDisplay(ItemManager.createSteel(), "Proper Steel", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(steelIngotKey), coordAdapter.getY(steelIngotKey),
+                "The final step in the Steel making chain, forge your Billet into Steel Ingots"), SteelBillet, 1);
+        SteelHammer = new ParentVisibleBaseAdvancement(steelHammerKey.getKey(), new AdvancementDisplay(ItemManager.createSteelHammer(), "One Hit Wonder", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(steelHammerKey), coordAdapter.getY(steelHammerKey),
+                "The best hammer your skills can craft, a whooping 75% reduction"), SteelIngot, 1);
+        SteelArmor = new ParentVisibleBaseAdvancement(steelArmorKey.getKey(), new AdvancementDisplay(ItemManager.createSteelChestplate(), "Protected", AdvancementFrameType.GOAL,
+                true, true, coordAdapter.getX(steelArmorKey), coordAdapter.getY(steelArmorKey),
+                "Armor like you have not seen before"), SteelIngot, 1);
+        SteelPick = new ParentVisibleBaseAdvancement(steelPickKey.getKey(), new AdvancementDisplay(ItemManager.createSteelPick(), "All Breaker", AdvancementFrameType.TASK,
+                true, true, coordAdapter.getX(steelPickKey), coordAdapter.getY(steelPickKey),
+                "This handy Pickaxe can break almost anything, it may be slightly slow but it's capable"), SteelIngot, 1);
 
         tab.registerAdvancements(Root, NoLog, Handaxe, Flint, Sticks, Knife, Axe, Grass, Twine, Log, Crafting, Carving, Pick,
                 Campfire, Terracotta, Furnace, Copper, Stonecutter, CopperPick, CopperFurnace, HammerTime, HeatedCopper, BulkCopper,
                 Forge, ForgedPickaxe, SuitedUp, ForgedHammer, IronBurden, CastIron, IronBloom, WroughtIron, IronHammer, IronPick,
-                IronArmor, BlastFurnace);
+                IronArmor, BlastFurnace, Coke, RichBloom, Nether, Padding, CopperFurnaceUpgrade, Oven, SteelCharge, CarbonBurden,
+                PigIron, SteelBillet, SteelIngot, SteelArmor, SteelHammer, SteelPick);
     }
 
     public static AdvancementTab getTab() {

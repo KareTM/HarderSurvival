@@ -4,10 +4,13 @@ import io.papermc.paper.datacomponent.DataComponentTypes;
 import kare.kareHardSurvival.Items.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class InventoryHelpers {
     public static ItemStack getMainhand(Player p) {
@@ -26,6 +29,19 @@ public class InventoryHelpers {
 
     public static void damageTool(Player p, ItemStack tool) {
         tool.damage(1, p);
+    }
+
+    public static void damageToolConsiderUnbreaking(Player p, ItemStack tool) {
+        int unbreaking = tool.getEnchantmentLevel(Enchantment.UNBREAKING);
+        if (unbreaking == 0) {
+            damageTool(p, tool);
+            return;
+        }
+        int roll = ThreadLocalRandom.current().nextInt(unbreaking + 1);
+
+        if (roll == 0) {
+            tool.damage(1, p);
+        }
     }
 
     public static void damageTool(Player p, ItemStack tool, int damage) {

@@ -1,29 +1,21 @@
 package kare.kareHardSurvival.Listeners;
 
-import com.jeff_media.customblockdata.CustomBlockData;
 import kare.kareHardSurvival.Advancements.AdvancementManager;
 import kare.kareHardSurvival.Helpers.FlagHelper;
 import kare.kareHardSurvival.Helpers.Granter.Granter;
 import kare.kareHardSurvival.Helpers.Granter.GranterBuilder;
 import kare.kareHardSurvival.Helpers.RecipeKeyList;
 import kare.kareHardSurvival.Items.ItemManager;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Tag;
-import org.bukkit.block.Furnace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
-import org.bukkit.event.inventory.FurnaceBurnEvent;
-import org.bukkit.inventory.FurnaceRecipe;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.*;
 import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class CraftManager implements Listener {
@@ -51,7 +43,14 @@ public class CraftManager implements Listener {
             GranterBuilder.of(ItemStack.of(Material.STONECUTTER)).grant(AdvancementManager.Stonecutter).build(),
             GranterBuilder.of(ItemManager.createIronBurden()).discover(RecipeKeyList.ironBloom).grant(AdvancementManager.IronBurden).build(),
             GranterBuilder.of(ItemManager.createWroughtIronBlastFurnace()).discover(RecipeKeyList.copperNuggetBlast, RecipeKeyList.copperIngotBlast,
-                    RecipeKeyList.heatedCopperBlast, RecipeKeyList.ironBloomBlast, RecipeKeyList.castIronBlast).grant(AdvancementManager.BlastFurnace).build()
+                            RecipeKeyList.heatedCopperBlast, RecipeKeyList.ironBloomBlast, RecipeKeyList.castIronBlast, RecipeKeyList.coalCoke, RecipeKeyList.charcoalCoke).
+                    grant(AdvancementManager.BlastFurnace).build(),
+            GranterBuilder.of(ItemStack.of(Material.NETHER_BRICKS)).discover(RecipeKeyList.ovenPadding).build(),
+            GranterBuilder.of(ItemManager.createPadding()).discover(RecipeKeyList.furnaceNether, RecipeKeyList.furnaceCopperUpgrade).grant(AdvancementManager.Padding).build(),
+            GranterBuilder.of(ItemManager.createBlastOven()).discover(RecipeKeyList.steelCharge, RecipeKeyList.highCarbonBurden).grant(AdvancementManager.Oven).build(),
+            GranterBuilder.of(ItemManager.createCopperOven()).discover().grant(AdvancementManager.CopperFurnaceUpgrade).build(),
+            GranterBuilder.of(ItemManager.createSteelCharge()).discover(RecipeKeyList.steelBillet).grant(AdvancementManager.SteelCharge).build(),
+            GranterBuilder.of(ItemManager.createHighCarbonBurden()).discover(RecipeKeyList.pigIronMass).grant(AdvancementManager.CarbonBurden).build()
     ));
 
     static {
@@ -72,6 +71,11 @@ public class CraftManager implements Listener {
             if (FlagHelper.hasFlag(item, FlagHelper.flagNoCraft)) {
                 event.setCancelled(true);
                 return;
+            } else if (FlagHelper.hasFlag(item, FlagHelper.flagCraftOnlyPlugin)) {
+                var recipe = (CraftingRecipe) event.getRecipe();
+                if (!recipe.getKey().getNamespace().equals(plugin.namespace())) {
+                    event.setCancelled(true);
+                }
             }
         }
 

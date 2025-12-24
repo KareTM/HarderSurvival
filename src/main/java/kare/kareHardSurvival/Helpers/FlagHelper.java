@@ -22,25 +22,31 @@ public class FlagHelper {
     public static final NamespacedKey flagNoPlace = new NamespacedKey(plugin, "no_place");
     public static final NamespacedKey flagNoBurn = new NamespacedKey(plugin, "no_burn");
     public static final NamespacedKey flagNoCraft = new NamespacedKey(plugin, "no_craft");
+    public static final NamespacedKey flagCraftOnlyPlugin = new NamespacedKey(plugin, "only_plugin");
     public static final NamespacedKey flagNoSmelt = new NamespacedKey(plugin, "no_smelt");
+    public static final NamespacedKey flagSmeltOnlyPlugin = new NamespacedKey(plugin, "only_plugin");
 
     public static final NamespacedKey flagPickTier1 = new NamespacedKey(plugin, "pick_tier_1");
     public static final NamespacedKey flagPickTier2 = new NamespacedKey(plugin, "pick_tier_2");
     public static final NamespacedKey flagPickTier3 = new NamespacedKey(plugin, "pick_tier_3");
     public static final NamespacedKey flagPickTier4 = new NamespacedKey(plugin, "pick_tier_4");
+    public static final NamespacedKey flagPickTier5 = new NamespacedKey(plugin, "pick_tier_5");
 
     public static final NamespacedKey flagFurnace = new NamespacedKey(plugin, "furnace");
     public static final NamespacedKey flagFurnaceTier1 = new NamespacedKey(plugin, "furnace_tier_1");
     public static final NamespacedKey flagFurnaceTier2 = new NamespacedKey(plugin, "furnace_tier_2");
     public static final NamespacedKey flagFurnaceTier3 = new NamespacedKey(plugin, "furnace_tier_3");
+    public static final NamespacedKey flagFurnaceTier3Alt = new NamespacedKey(plugin, "furnace_tier_3_alt");
     public static final NamespacedKey flagFurnaceTier4 = new NamespacedKey(plugin, "furnace_tier_4");
 
     public static final NamespacedKey flagHammer = new NamespacedKey(plugin, "hammer");
     public static final NamespacedKey flagHammerTier1 = new NamespacedKey(plugin, "hammer_tier_1");
     public static final NamespacedKey flagHammerTier2 = new NamespacedKey(plugin, "hammer_tier_2");
     public static final NamespacedKey flagHammerTier3 = new NamespacedKey(plugin, "hammer_tier_3");
+    public static final NamespacedKey flagHammerTier4 = new NamespacedKey(plugin, "hammer_tier_4");
 
     public static final NamespacedKey flagRequiresFurnaceTier2 = new NamespacedKey(plugin, "needs_furnace_2");
+    public static final NamespacedKey flagRequiresFurnaceTier4 = new NamespacedKey(plugin, "needs_furnace_4");
 
     public static final NamespacedKey flagIFUUID = new NamespacedKey(plugin, "if-uuid");
 

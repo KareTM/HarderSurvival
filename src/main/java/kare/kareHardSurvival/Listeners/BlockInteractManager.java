@@ -94,6 +94,18 @@ public class BlockInteractManager implements Listener {
                 furnace.setCookSpeedMultiplier((double) 1 / FuelHelper.TIER3_SPEED_DIVISOR);
 
                 furnace.update();
+            } else if (FlagHelper.hasFlag(tool, FlagHelper.flagFurnaceTier3Alt)) {
+                FlagHelper.setFlag(cbd, FlagHelper.flagFurnaceTier3Alt, true);
+                var furnace = (Furnace) block.getState();
+                furnace.setCookSpeedMultiplier(FuelHelper.TIER3_ALT_SPEED_MULT);
+
+                furnace.update();
+            } else if (FlagHelper.hasFlag(tool, FlagHelper.flagFurnaceTier4)) {
+                FlagHelper.setFlag(cbd, FlagHelper.flagFurnaceTier4, true);
+                var furnace = (BlastFurnace) block.getState();
+                furnace.setCookSpeedMultiplier((double) 1 / FuelHelper.TIER4_SPEED_DIVISOR);
+
+                furnace.update();
             }
 
             if (tool.getType().equals(Material.CAMPFIRE)) {

@@ -9,7 +9,6 @@ import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import kare.kareHardSurvival.Helpers.ForgeRecipes;
 import kare.kareHardSurvival.Items.ItemEditor;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -26,19 +25,18 @@ public class RecipeSelectGUI {
     private final PaginatedPane pages;
     private StaticPane nav;
 
-    private static final int WIDTH = 7;
+    private static final int WIDTH = 5;
     private static final int HEIGHT = 4;
 
     public RecipeSelectGUI(
             Player player,
-            NamespacedKey selected,
             Consumer<NamespacedKey> onSelect
     ) {
         gui = new ChestGui(6, "Select Recipe");
         OutlinePane bg = new OutlinePane(0, 0, 9, 6);
         var pane = ItemStack.of(Material.GRAY_STAINED_GLASS_PANE);
         var meta = pane.getItemMeta();
-        meta.displayName(Component.text(""));
+        meta.itemName(Component.text(""));
         pane.setItemMeta(meta);
 
         bg.addItem(new GuiItem(pane, e -> e.setCancelled(true)));
@@ -46,7 +44,7 @@ public class RecipeSelectGUI {
         bg.setPriority(Pane.Priority.LOWEST);
         gui.addPane(bg);
 
-        pages = new PaginatedPane(1, 1, WIDTH, HEIGHT);
+        pages = new PaginatedPane(2, 1, WIDTH, HEIGHT);
         gui.addPane(pages);
 
         buildPages(player, onSelect);
@@ -102,7 +100,13 @@ public class RecipeSelectGUI {
         nav.addItem(new GuiItem(
                 ItemEditor.editMeta(
                         ItemStack.of(hasPrev ? Material.ARROW : Material.GRAY_STAINED_GLASS_PANE),
-                        m -> m.itemName(Component.text("Previous"))
+                        m -> {
+                            if (hasPrev) {
+                                m.itemName(Component.text("Previous"));
+                            } else {
+                                m.itemName(Component.text(""));
+                            }
+                        }
                 ),
                 e -> {
                     e.setCancelled(true);
@@ -112,7 +116,7 @@ public class RecipeSelectGUI {
                     redrawNav(p);
                     gui.update();
                 }
-        ), 0, 0);
+        ), 2, 0);
 
         // Cancel
         nav.addItem(new GuiItem(
@@ -128,7 +132,13 @@ public class RecipeSelectGUI {
         nav.addItem(new GuiItem(
                 ItemEditor.editMeta(
                         ItemStack.of(hasNext ? Material.ARROW : Material.GRAY_STAINED_GLASS_PANE),
-                        m -> m.itemName(Component.text("Next"))
+                        m -> {
+                            if (hasNext) {
+                                m.itemName(Component.text("Next"));
+                            } else {
+                                m.itemName(Component.text(""));
+                            }
+                        }
                 ),
                 e -> {
                     e.setCancelled(true);
@@ -138,7 +148,7 @@ public class RecipeSelectGUI {
                     redrawNav(p);
                     gui.update();
                 }
-        ), 8, 0);
+        ), 6, 0);
     }
 
     public void open(Player player) {

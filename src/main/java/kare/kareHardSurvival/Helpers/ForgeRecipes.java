@@ -1,5 +1,8 @@
 package kare.kareHardSurvival.Helpers;
 
+import kare.kareHardSurvival.Advancements.AdvancementManager;
+import kare.kareHardSurvival.Helpers.Granter.Granter;
+import kare.kareHardSurvival.Helpers.Granter.GranterBuilder;
 import kare.kareHardSurvival.Items.ItemManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -54,8 +57,49 @@ public class ForgeRecipes {
                     ItemStack.of(Material.IRON_LEGGINGS), 18, ItemManager.createWroughtIron().asQuantity(7)));
             put(RecipeKeyList.ironBoots, new ForgeRecipe(RecipeKeyList.ironBoots, Component.text("Wrought Iron Boots"),
                     ItemStack.of(Material.IRON_BOOTS), 14, ItemManager.createWroughtIron().asQuantity(4)));
+            put(RecipeKeyList.wroughtIronRich, new ForgeRecipe(RecipeKeyList.wroughtIronRich, Component.text("Wrought Iron Ingot"),
+                    ItemManager.createWroughtIron().asQuantity(4), 20, ItemManager.createRichBloom().asQuantity(1)));
+            put(RecipeKeyList.steelIngot, new ForgeRecipe(RecipeKeyList.steelIngot, Component.text("Steel Ingot"),
+                    ItemManager.createSteel(), 22, ItemManager.createSteelBillet().asQuantity(1)));
+            put(RecipeKeyList.steelAxe, new ForgeRecipe(RecipeKeyList.steelAxe, Component.text("Steel Axe"),
+                    ItemManager.createSteelAxe(), 18, ItemManager.createSteel().asQuantity(3), ItemStack.of(Material.STICK, 2)));
+            put(RecipeKeyList.steelPick, new ForgeRecipe(RecipeKeyList.steelPick, Component.text("Steel Pickaxe"),
+                    ItemManager.createSteelPick(), 18, ItemManager.createSteel().asQuantity(3), ItemStack.of(Material.STICK, 2)));
+            put(RecipeKeyList.steelShovel, new ForgeRecipe(RecipeKeyList.steelShovel, Component.text("Steel Shovel"),
+                    ItemManager.createSteelShovel(), 12, ItemManager.createSteel().asQuantity(1), ItemStack.of(Material.STICK, 2)));
+            put(RecipeKeyList.steelHammer, new ForgeRecipe(RecipeKeyList.steelHammer, Component.text("Steel Hammer"),
+                    ItemManager.createSteelHammer(), 25, ItemManager.createSteel().asQuantity(5), ItemStack.of(Material.STICK, 2)));
+            put(RecipeKeyList.steelSword, new ForgeRecipe(RecipeKeyList.steelSword, Component.text("Steel Sword"),
+                    ItemManager.createSteelSword(), 14, ItemManager.createSteel().asQuantity(2), ItemStack.of(Material.STICK, 1)));
+            put(RecipeKeyList.steelHelmet, new ForgeRecipe(RecipeKeyList.steelHelmet, Component.text("Steel Helmet"),
+                    ItemManager.createSteelHelmet(), 28, ItemManager.createSteel().asQuantity(5)));
+            put(RecipeKeyList.steelChestplate, new ForgeRecipe(RecipeKeyList.steelChestplate, Component.text("Steel Chestplate"),
+                    ItemManager.createSteelChestplate(), 32, ItemManager.createSteel().asQuantity(8)));
+            put(RecipeKeyList.steelLeggings, new ForgeRecipe(RecipeKeyList.steelLeggings, Component.text("Steel Leggings"),
+                    ItemManager.createSteelLeggings(), 30, ItemManager.createSteel().asQuantity(7)));
+            put(RecipeKeyList.steelBoots, new ForgeRecipe(RecipeKeyList.steelBoots, Component.text("Steel Boots"),
+                    ItemManager.createSteelBoots(), 26, ItemManager.createSteel().asQuantity(4)));
         }
     };
+
+    public static List<Granter> rules = List.of(
+            GranterBuilder.of(ItemManager.createForgedCopperPick()).grant(AdvancementManager.ForgedPickaxe).build(),
+            GranterBuilder.of(ItemManager.createForgedCopperHammer()).grant(AdvancementManager.ForgedHammer).build(),
+            GranterBuilder.of(ItemStack.of(Material.COPPER_HELMET))
+                    .addItems(List.of(ItemStack.of(Material.COPPER_CHESTPLATE), ItemStack.of(Material.COPPER_LEGGINGS),
+                            ItemStack.of(Material.COPPER_BOOTS))).grant(AdvancementManager.SuitedUp).build(),
+            GranterBuilder.of(ItemManager.createWroughtIron()).discover(RecipeKeyList.furnaceIron).grant(AdvancementManager.WroughtIron).build(),
+            GranterBuilder.of(ItemManager.createWroughtIronHammer()).grant(AdvancementManager.IronHammer).build(),
+            GranterBuilder.of(ItemManager.createWroughtIronPick()).grant(AdvancementManager.IronPick).build(),
+            GranterBuilder.of(ItemStack.of(Material.IRON_HELMET))
+                    .addItems(List.of(ItemStack.of(Material.IRON_CHESTPLATE), ItemStack.of(Material.IRON_LEGGINGS),
+                            ItemStack.of(Material.IRON_BOOTS))).grant(AdvancementManager.IronArmor).build(),
+            GranterBuilder.of(ItemManager.createSteel()).grant(AdvancementManager.SteelIngot).build(),
+            GranterBuilder.of(ItemManager.createSteelHammer()).grant(AdvancementManager.SteelHammer).build(),
+            GranterBuilder.of(ItemManager.createSteelPick()).grant(AdvancementManager.SteelPick).build(),
+            GranterBuilder.of(ItemManager.createSteelHelmet()).addItems(List.of(ItemManager.createSteelChestplate(),
+                    ItemManager.createSteelLeggings(), ItemManager.createSteelBoots())).grant(AdvancementManager.SteelArmor).build()
+    );
 
     public static int getReduction(ItemStack item) {
         int tier = 0;
@@ -73,7 +117,7 @@ public class ForgeRecipes {
         if (FlagHelper.hasFlag(item, FlagHelper.flagHammerTier1)) tier = 1;
         else if (FlagHelper.hasFlag(item, FlagHelper.flagHammerTier2)) tier = 2;
         else if (FlagHelper.hasFlag(item, FlagHelper.flagHammerTier3)) tier = 3;
-        //else if (FlagHelper.hasFlag(item, FlagHelper.flagHammerTier4)) tier = 4;
+        else if (FlagHelper.hasFlag(item, FlagHelper.flagHammerTier4)) tier = 4;
 
         return eff_reduction + switch (tier) {
             case 1 -> 0;
@@ -117,6 +161,26 @@ public class ForgeRecipes {
                 add(Component.text(""));
                 add(Component.text("Needs ").decoration(TextDecoration.ITALIC, false).
                         append(Component.text(recipe.actionCount).color(NamedTextColor.RED)).
+                        append(Component.text(" actions").decoration(TextDecoration.ITALIC, false)));
+                add(Component.text(""));
+                add(Component.text("Click to cycle").decoration(TextDecoration.ITALIC, false));
+            }
+        });
+    }
+
+    public static void recipeLore(ItemMeta meta, ForgeRecipe recipe, int reduction) {
+        int usedCount = Math.max((int) Math.round((100.0 - reduction) * recipe.actionCount / 100.0), 1);
+
+        meta.lore(new ArrayList<>() {
+            {
+                add(Component.text("Cost:").decoration(TextDecoration.ITALIC, false));
+                for (ItemStack req : recipe.itemsRequirement) {
+                    TextComponent text = Component.text("  " + req.getAmount() + "x ").append(req.displayName()).decoration(TextDecoration.ITALIC, false);
+                    add(text);
+                }
+                add(Component.text(""));
+                add(Component.text("Needs ").decoration(TextDecoration.ITALIC, false).
+                        append(Component.text(usedCount).color(NamedTextColor.RED)).
                         append(Component.text(" actions").decoration(TextDecoration.ITALIC, false)));
                 add(Component.text(""));
                 add(Component.text("Click to cycle").decoration(TextDecoration.ITALIC, false));

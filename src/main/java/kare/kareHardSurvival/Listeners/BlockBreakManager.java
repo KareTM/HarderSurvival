@@ -44,7 +44,7 @@ public class BlockBreakManager implements Listener {
                 AdvancementManager.NoLog.grant(p);
                 if (tool.isEmpty())
                     p.damage(1);
-            } else if (FlagHelper.hasFlag(tool, FlagHelper.flagAxe) || p.isSneaking()){
+            } else if (FlagHelper.hasFlag(tool, FlagHelper.flagAxe) || p.isSneaking()) {
                 e.setDropItems(false);
                 ts.onBlockBreak(p, e);
             }
@@ -98,16 +98,17 @@ public class BlockBreakManager implements Listener {
         if (FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier1)) {
             world.dropItemNaturally(loc, ItemManager.createFurnace());
             FlagHelper.removeFlag(bd, FlagHelper.flagFurnaceTier1);
-        }
-        if (FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier2)) {
+        } else if (FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier2)) {
             world.dropItemNaturally(loc, ItemManager.createFurnaceCopper());
             FlagHelper.removeFlag(bd, FlagHelper.flagFurnaceTier2);
-        }
-        if (FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier3)) {
+        } else if (FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier3)) {
             world.dropItemNaturally(loc, ItemManager.createWroughtIronBlastFurnace());
             FlagHelper.removeFlag(bd, FlagHelper.flagFurnaceTier3);
-        }
-        if (FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier4)) {
+        } else if (FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier3Alt)) {
+            world.dropItemNaturally(loc, ItemManager.createWroughtIronBlastFurnace());
+            FlagHelper.removeFlag(bd, FlagHelper.flagFurnaceTier3Alt);
+        } else if (FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier4)) {
+            world.dropItemNaturally(loc, ItemManager.createBlastOven());
             FlagHelper.removeFlag(bd, FlagHelper.flagFurnaceTier4);
         }
     }
@@ -193,7 +194,7 @@ public class BlockBreakManager implements Listener {
     private static void furnaceCheck(BlockDropItemEvent e) {
         var toRemove = new ArrayList<Item>();
 
-        for(var item : e.getItems()) {
+        for (var item : e.getItems()) {
             if (item.getItemStack().getType() != Material.FURNACE && item.getItemStack().getType() != Material.BLAST_FURNACE)
                 continue;
             var name = item.getItemStack().getData(DataComponentTypes.CUSTOM_NAME);
@@ -201,11 +202,11 @@ public class BlockBreakManager implements Listener {
                 continue;
             if (name.equals(ItemManager.createFurnace().getData(DataComponentTypes.CUSTOM_NAME))) {
                 toRemove.add(item);
-            }
-            else if (name.equals(ItemManager.createFurnaceCopper().getData(DataComponentTypes.CUSTOM_NAME))) {
+            } else if (name.equals(ItemManager.createFurnaceCopper().getData(DataComponentTypes.CUSTOM_NAME))) {
                 toRemove.add(item);
-            }
-            else if (name.equals(ItemManager.createWroughtIronBlastFurnace().getData(DataComponentTypes.CUSTOM_NAME))) {
+            } else if (name.equals(ItemManager.createWroughtIronBlastFurnace().getData(DataComponentTypes.CUSTOM_NAME))) {
+                toRemove.add(item);
+            } else if (name.equals(ItemManager.createBlastOven().getData(DataComponentTypes.CUSTOM_NAME))) {
                 toRemove.add(item);
             }
         }
