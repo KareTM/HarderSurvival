@@ -102,6 +102,9 @@ public class ForgeRecipes {
     );
 
     public static int getReduction(ItemStack item) {
+        if (item == null)
+            return 0;
+
         int tier = 0;
 
         var eff = item.getEnchantmentLevel(Enchantment.EFFICIENCY);

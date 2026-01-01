@@ -120,7 +120,7 @@ public class ItemManager {
 
         item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
                 addModifier(Attribute.ATTACK_DAMAGE, new AttributeModifier(Attribute.ATTACK_DAMAGE.getKey(),
-                        2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                                2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
                         AttributeModifierDisplay.override(Component.text(" 2 Attack Damage").color(NamedTextColor.DARK_GREEN))).
                 addModifier(Attribute.ATTACK_SPEED, new AttributeModifier(Attribute.ATTACK_SPEED.getKey(),
                                 -2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
@@ -906,10 +906,10 @@ public class ItemManager {
         item.setData(DataComponentTypes.DYED_COLOR, DyedItemColor.dyedItemColor(Color.WHITE));
 
         item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
-                addModifier(Attribute.ARMOR, new AttributeModifier(Attribute.ARMOR.getKey(),
-                                3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD)).
-                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(Attribute.ARMOR_TOUGHNESS.getKey(),
-                                1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD))
+                addModifier(Attribute.ARMOR, new AttributeModifier(NamespacedKey.minecraft(Attribute.ARMOR.getKey().getKey() + ".helmet"),
+                        3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD)).
+                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(NamespacedKey.minecraft(Attribute.ARMOR_TOUGHNESS.getKey().getKey() + ".helmet"),
+                        1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD))
                 .build());
 
         ItemEditor.editMeta(item, m -> m.addItemFlags(ItemFlag.HIDE_DYE));
@@ -926,9 +926,9 @@ public class ItemManager {
         item.setData(DataComponentTypes.DYED_COLOR, DyedItemColor.dyedItemColor(Color.WHITE));
 
         item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
-                addModifier(Attribute.ARMOR, new AttributeModifier(Attribute.ARMOR.getKey(),
+                addModifier(Attribute.ARMOR, new AttributeModifier(NamespacedKey.minecraft(Attribute.ARMOR.getKey().getKey() + ".chestplate"),
                         7, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST)).
-                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(Attribute.ARMOR_TOUGHNESS.getKey(),
+                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(NamespacedKey.minecraft(Attribute.ARMOR_TOUGHNESS.getKey().getKey() + ".chestplate"),
                         1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST))
                 .build());
 
@@ -946,9 +946,9 @@ public class ItemManager {
         item.setData(DataComponentTypes.DYED_COLOR, DyedItemColor.dyedItemColor(Color.WHITE));
 
         item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
-                addModifier(Attribute.ARMOR, new AttributeModifier(Attribute.ARMOR.getKey(),
+                addModifier(Attribute.ARMOR, new AttributeModifier(NamespacedKey.minecraft(Attribute.ARMOR.getKey().getKey() + ".leggings"),
                         6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS)).
-                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(Attribute.ARMOR_TOUGHNESS.getKey(),
+                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(NamespacedKey.minecraft(Attribute.ARMOR_TOUGHNESS.getKey().getKey() + ".leggings"),
                         1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS))
                 .build());
 
@@ -966,9 +966,9 @@ public class ItemManager {
         item.setData(DataComponentTypes.DYED_COLOR, DyedItemColor.dyedItemColor(Color.WHITE));
 
         item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
-                addModifier(Attribute.ARMOR, new AttributeModifier(Attribute.ARMOR.getKey(),
+                addModifier(Attribute.ARMOR, new AttributeModifier(NamespacedKey.minecraft(Attribute.ARMOR.getKey().getKey() + ".boots"),
                         3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET)).
-                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(Attribute.ARMOR_TOUGHNESS.getKey(),
+                addModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(NamespacedKey.minecraft(Attribute.ARMOR_TOUGHNESS.getKey().getKey() + ".boots"),
                         1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET))
                 .build());
 

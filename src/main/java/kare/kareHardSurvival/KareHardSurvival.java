@@ -3,7 +3,9 @@ package kare.kareHardSurvival;
 import com.fren_gor.ultimateAdvancementAPI.AdvancementMain;
 import com.fren_gor.ultimateAdvancementAPI.database.impl.SQLite;
 import kare.kareHardSurvival.Advancements.AdvancementManager;
+import kare.kareHardSurvival.Helpers.Commands.CommandManager;
 import kare.kareHardSurvival.Items.ItemManager;
+import kare.kareHardSurvival.Items.ItemRegistry;
 import kare.kareHardSurvival.Listeners.*;
 import kare.kareHardSurvival.Recipes.RecipeAdder;
 import kare.kareHardSurvival.Recipes.RecipeDisabler;
@@ -11,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Objects;
 
 public final class KareHardSurvival extends JavaPlugin implements Listener {
     AdvancementMain AdvancementLib;
@@ -62,6 +65,10 @@ public final class KareHardSurvival extends JavaPlugin implements Listener {
 
         LootManager lm = new LootManager(this);
         getServer().getPluginManager().registerEvents(lm, this);
+
+        ItemRegistry.initialize();
+        Objects.requireNonNull(getCommand("migrateitem"))
+                .setExecutor(new CommandManager());
     }
 
     @Override

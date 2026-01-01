@@ -37,9 +37,8 @@ public class InventoryHelpers {
             damageTool(p, tool);
             return;
         }
-        int roll = ThreadLocalRandom.current().nextInt(unbreaking + 1);
-
-        if (roll == 0) {
+        double roll = ThreadLocalRandom.current().nextDouble();
+        if (roll < (5.0 - unbreaking) / 6) {
             tool.damage(1, p);
         }
     }
@@ -60,6 +59,10 @@ public class InventoryHelpers {
             return hammer;
         } else if (FlagHelper.hasFlag(tool, FlagHelper.flagHammerTier3)) {
             var hammer = ItemManager.createWroughtIronHammer();
+            hammer.addEnchantments(tool.getEnchantments());
+            return hammer;
+        } else if (FlagHelper.hasFlag(tool, FlagHelper.flagHammerTier4)) {
+            var hammer = ItemManager.createSteelHammer();
             hammer.addEnchantments(tool.getEnchantments());
             return hammer;
         }

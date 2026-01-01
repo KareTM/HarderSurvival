@@ -105,7 +105,7 @@ public class BlockBreakManager implements Listener {
             world.dropItemNaturally(loc, ItemManager.createWroughtIronBlastFurnace());
             FlagHelper.removeFlag(bd, FlagHelper.flagFurnaceTier3);
         } else if (FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier3Alt)) {
-            world.dropItemNaturally(loc, ItemManager.createWroughtIronBlastFurnace());
+            world.dropItemNaturally(loc, ItemManager.createCopperOven());
             FlagHelper.removeFlag(bd, FlagHelper.flagFurnaceTier3Alt);
         } else if (FlagHelper.hasFlag(bd, FlagHelper.flagFurnaceTier4)) {
             world.dropItemNaturally(loc, ItemManager.createBlastOven());
@@ -186,9 +186,12 @@ public class BlockBreakManager implements Listener {
         stickObtain(e, tool);
         handaxeObtain(e, tool, p);
         flintObtain(e, tool);
-        copperObtain(e, tool);
-        coalObtain(e, tool);
-        ironObtain(e, tool);
+        var silk = tool.getEnchantmentLevel(Enchantment.SILK_TOUCH);
+        if (silk == 0) {
+            copperObtain(e, tool);
+            coalObtain(e, tool);
+            ironObtain(e, tool);
+        }
     }
 
     private static void furnaceCheck(BlockDropItemEvent e) {
@@ -205,6 +208,8 @@ public class BlockBreakManager implements Listener {
             } else if (name.equals(ItemManager.createFurnaceCopper().getData(DataComponentTypes.CUSTOM_NAME))) {
                 toRemove.add(item);
             } else if (name.equals(ItemManager.createWroughtIronBlastFurnace().getData(DataComponentTypes.CUSTOM_NAME))) {
+                toRemove.add(item);
+            } else if (name.equals(ItemManager.createCopperOven().getData(DataComponentTypes.CUSTOM_NAME))) {
                 toRemove.add(item);
             } else if (name.equals(ItemManager.createBlastOven().getData(DataComponentTypes.CUSTOM_NAME))) {
                 toRemove.add(item);

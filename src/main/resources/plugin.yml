@@ -5,3 +5,12 @@ api-version: '1.21.10'
 authors: [ Kare ]
 description: Makes the early game harder
 softdepend: [UltimateAdvancementAPI]
+commands:
+  migrateitem:
+    description: Migrate the item in your main hand
+    usage: /migrateitem
+    permission: karehardsurvival.upgrade
+
+permissions:
+  karehardsurvival.upgrade:
+    default: true
