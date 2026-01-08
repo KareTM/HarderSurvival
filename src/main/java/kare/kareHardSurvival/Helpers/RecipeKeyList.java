@@ -25,6 +25,7 @@ public class RecipeKeyList {
     public static final NamespacedKey ironHammer = new NamespacedKey(plugin, "iron_hammer");
     public static final NamespacedKey ironSword = new NamespacedKey(plugin, "iron_sword");
     public static final NamespacedKey steelPick = new NamespacedKey(plugin, "steel_pick");
+    public static final NamespacedKey steelProPick = new NamespacedKey(plugin, "steel_prospector_pick");
     public static final NamespacedKey steelAxe = new NamespacedKey(plugin, "steel_axe");
     public static final NamespacedKey steelShovel = new NamespacedKey(plugin, "steel_shovel");
     public static final NamespacedKey steelHammer = new NamespacedKey(plugin, "steel_hammer");

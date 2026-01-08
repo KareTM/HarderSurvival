@@ -6,6 +6,9 @@ import kare.kareHardSurvival.GUI.ForgeGUI;
 import kare.kareHardSurvival.Helpers.FlagHelper;
 import kare.kareHardSurvival.Helpers.InventoryHelpers;
 import kare.kareHardSurvival.Helpers.FuelHelper;
+import kare.kareHardSurvival.Helpers.Prospecting.ProspectActionBar;
+import kare.kareHardSurvival.Helpers.Prospecting.ProspectingProfiles;
+import kare.kareHardSurvival.Helpers.Prospecting.Prospector;
 import org.bukkit.Material;
 import org.bukkit.block.BlastFurnace;
 import org.bukkit.block.Furnace;
@@ -18,6 +21,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
+
+import java.util.List;
 
 public class BlockInteractManager implements Listener {
     static Plugin plugin;
@@ -49,6 +54,18 @@ public class BlockInteractManager implements Listener {
         if (FlagHelper.hasFlag(cbd, FlagHelper.flagForge) && event.getAction().isRightClick()) {
             event.setCancelled(true);
             ForgeGUI.getGUI(block).open(p);
+        }
+
+        var tool = InventoryHelpers.getMainhand(p);
+        if (FlagHelper.hasFlag(tool, FlagHelper.flagProspect)) {
+            if (event.getAction().isRightClick() && p.getCooldown(tool) == 0) {
+                InventoryHelpers.damageToolConsiderUnbreaking(p, tool);
+                List<Prospector.ProspectResult> results = Prospector.prospect(p.getLocation(), ProspectingProfiles.getFromTool(tool));
+                ProspectActionBar.showTopResultsOnce(p, results);
+                p.setCooldown(FlagHelper.flagProspect, FlagHelper.getIntValue(tool, FlagHelper.flagProspectCooldown));
+            }
+            event.setCancelled(true);
+            p.swingMainHand();
         }
     }
 

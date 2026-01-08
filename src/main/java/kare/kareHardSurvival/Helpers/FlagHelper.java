@@ -48,6 +48,10 @@ public class FlagHelper {
     public static final NamespacedKey flagRequiresFurnaceTier2 = new NamespacedKey(plugin, "needs_furnace_2");
     public static final NamespacedKey flagRequiresFurnaceTier4 = new NamespacedKey(plugin, "needs_furnace_4");
 
+    public static final NamespacedKey flagProspect = new NamespacedKey(plugin, "prospect");
+    public static final NamespacedKey flagProspectCooldown = new NamespacedKey(plugin, "prospect_cooldown");
+    public static final NamespacedKey flagProspectBasic = new NamespacedKey(plugin, "prospect_basic");
+
     public static final NamespacedKey flagIFUUID = new NamespacedKey(plugin, "if-uuid");
 
     public static boolean hasFlag(ItemStack item, NamespacedKey key) {
@@ -56,6 +60,18 @@ public class FlagHelper {
 
     public static void setFlag(ItemStack item, NamespacedKey key, Boolean value) {
         item.editPersistentDataContainer(pdc -> pdc.set(key, PersistentDataType.BOOLEAN, value));
+    }
+
+    public static boolean hasIntValue(ItemStack item, NamespacedKey key) {
+        return item.getPersistentDataContainer().has(key) || item.getPersistentDataContainer().get(key, PersistentDataType.INTEGER) != null;
+    }
+
+    public static int getIntValue(ItemStack item, NamespacedKey key) {
+        return item.getPersistentDataContainer().getOrDefault(key, PersistentDataType.INTEGER, 0);
+    }
+
+    public static void setIntValue(ItemStack item, NamespacedKey key, int value) {
+        item.editPersistentDataContainer(pdc -> pdc.set(key, PersistentDataType.INTEGER, value));
     }
 
     public static boolean hasFlag(CustomBlockData data, NamespacedKey key) {

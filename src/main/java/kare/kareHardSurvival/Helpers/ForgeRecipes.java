@@ -65,6 +65,8 @@ public class ForgeRecipes {
                     ItemManager.createSteelAxe(), 18, ItemManager.createSteel().asQuantity(3), ItemStack.of(Material.STICK, 2)));
             put(RecipeKeyList.steelPick, new ForgeRecipe(RecipeKeyList.steelPick, Component.text("Steel Pickaxe"),
                     ItemManager.createSteelPick(), 18, ItemManager.createSteel().asQuantity(3), ItemStack.of(Material.STICK, 2)));
+            put(RecipeKeyList.steelProPick, new ForgeRecipe(RecipeKeyList.steelProPick, Component.text("Steel Prospector Pickaxe"),
+                    ItemManager.createSteelProspectorPick(), 20, ItemManager.createSteel().asQuantity(4), ItemStack.of(Material.STICK, 2)));
             put(RecipeKeyList.steelShovel, new ForgeRecipe(RecipeKeyList.steelShovel, Component.text("Steel Shovel"),
                     ItemManager.createSteelShovel(), 12, ItemManager.createSteel().asQuantity(1), ItemStack.of(Material.STICK, 2)));
             put(RecipeKeyList.steelHammer, new ForgeRecipe(RecipeKeyList.steelHammer, Component.text("Steel Hammer"),

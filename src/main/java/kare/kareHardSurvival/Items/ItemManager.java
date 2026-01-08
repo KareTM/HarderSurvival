@@ -976,4 +976,35 @@ public class ItemManager {
 
         return item;
     }
+
+    public static @NotNull ItemStack createSteelProspectorPick() {
+        ItemStack item = ItemStack.of(Material.IRON_PICKAXE);
+        item.setData(DataComponentTypes.MAX_DAMAGE, 450);
+        item.setData(DataComponentTypes.DAMAGE, 0);
+        item.setData(DataComponentTypes.ITEM_NAME, Component.text("Steel Prospector Pickaxe"));
+
+        item.unsetData(DataComponentTypes.TOOL);
+        item.setData(DataComponentTypes.LORE,
+                ItemLore.lore().
+                        addLine(Component.text("Prospecting Cooldown - 8s").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GRAY)).
+                        addLine(Component.text("Prospecting Range - 16").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GRAY)).
+                        build());
+
+        item.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes().
+                addModifier(Attribute.ATTACK_DAMAGE, new AttributeModifier(Attribute.ATTACK_DAMAGE.getKey(),
+                                5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 5 Attack Damage").color(NamedTextColor.DARK_GREEN))).
+                addModifier(Attribute.ATTACK_SPEED, new AttributeModifier(Attribute.ATTACK_SPEED.getKey(),
+                                -2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND),
+                        AttributeModifierDisplay.override(Component.text(" 1.5 Attack Speed").color(NamedTextColor.DARK_GREEN)))
+                .build());
+
+        item.setData(DataComponentTypes.USE_COOLDOWN, UseCooldown.useCooldown(8).cooldownGroup(FlagHelper.flagProspect).build());
+
+        FlagHelper.setFlag(item, FlagHelper.flagProspect, true);
+        FlagHelper.setFlag(item, FlagHelper.flagProspectBasic, true);
+        FlagHelper.setIntValue(item, FlagHelper.flagProspectCooldown, 160);
+
+        return item;
+    }
 }
