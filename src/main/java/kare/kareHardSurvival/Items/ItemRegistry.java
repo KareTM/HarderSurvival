@@ -53,8 +53,8 @@ public final class ItemRegistry {
 
         ItemStack upgraded = factory.get();
 
-        upgraded.setData(DataComponentTypes.DAMAGE,
-                item.getDataOrDefault(DataComponentTypes.DAMAGE, 0));
+        if (item.hasData(DataComponentTypes.DAMAGE) && item.hasData(DataComponentTypes.MAX_DAMAGE))
+            upgraded.setData(DataComponentTypes.DAMAGE, item.getDataOrDefault(DataComponentTypes.DAMAGE, 0));
 
         if (item.hasData(DataComponentTypes.TRIM)) {
             upgraded.setData(DataComponentTypes.TRIM, item.getData(DataComponentTypes.TRIM));
